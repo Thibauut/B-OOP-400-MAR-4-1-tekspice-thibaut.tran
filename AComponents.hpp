@@ -10,21 +10,52 @@
 #include "IComponents.hpp"
 
 namespace nts {
-    class AComponent: public virtual nts::IComponent {
+    class AComponent: public IComponent {
         public:
-            // AComponent(std::string &gates): _gates(gates) {
-            //     _gates = gates;
+            // AComponent(std::string name, size_t pin) {
+            //     _component = name;
+            //     // _pins[pin]._pin = pin;
+            //     // _pins[pin]._state = nts::UNDEFINED;
             // };
-            AComponent() {};
-            ~AComponent() {};
+            AComponent() = default;
 
-            void simulate(std::size_t tick) {};
-            virtual nts::Tristate compute(std::size_t pin = 1) { return nts::Tristate::UNDEFINED; };
-            void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin) {};
+            virtual ~AComponent() = default;
 
-        protected:
-            std::string _gates;
-            size_t pin;
+            virtual nts::Tristate compute(std::size_t pin) = 0;
+
+            virtual void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin) {
+                AComponent *tmp = dynamic_cast<AComponent*>(&other);
+                this->_pins[pin] = std::make_pair(&other, otherPin);
+                tmp->_pins[otherPin] = std::make_pair(this, pin);
+            };
+
+            virtual nts::Tristate getLink(std::size_t pin) {
+                return _pins.at(pin).first->compute(_pins.at(pin).second);
+            };
+
+            virtual void display() const {
+                cout << "tick: " << tick << std::endl;
+                cout << "input(s): " << "" << std::endl;
+                cout << "output(s): " << "" << std::endl;
+            };
+            virtual void simulate(std::size_t tick) {
+                this->tick = tick;
+            };
+
+            std::string _component;
+            std::map<std::size_t, std::pair<IComponent*, std::size_t>> _pins;
+            std::size_t tick = 0;
 
     };
+};
+
+std::ostream& operator<<(std::ostream &s, nts::Tristate state)
+{
+    if (state == nts::Tristate::UNDEFINED)
+        return s << "-1";
+    if (state == nts::Tristate::TRUE)
+        return s << "1";
+    if(state == nts::Tristate::FALSE)
+        return s << "0";
+    return s;
 };
