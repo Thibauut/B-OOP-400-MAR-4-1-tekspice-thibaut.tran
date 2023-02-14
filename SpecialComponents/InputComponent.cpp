@@ -9,7 +9,7 @@
 
 nts::Tristate nts::InputComponent::compute(std::size_t pin) {
     if (pin != 1)
-        throw Error("Input: Pin " + std::to_string(pin) + " doesn't exist");
+        Error::myErr("Input: Pin " + std::to_string(pin) + " doesn't exist");
     return this->_value;
 };
 

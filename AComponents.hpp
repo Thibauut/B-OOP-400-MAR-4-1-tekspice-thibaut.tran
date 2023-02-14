@@ -11,12 +11,18 @@
 
 namespace nts {
     class AComponent: public IComponent {
+
+        // struct Pin {
+        //     std::unique_ptr<IComponent> _component;
+        //     size_t _pin;
+        // };
+
         public:
-            // AComponent(std::string name, size_t pin) {
-            //     _component = name;
-            //     // _pins[pin]._pin = pin;
-            //     // _pins[pin]._state = nts::UNDEFINED;
-            // };
+            AComponent(std::string name) {
+                _component = name;
+                // _pins[pin] = pin;
+                // _pins[pin]._state = value;
+            };
             AComponent() = default;
 
             virtual ~AComponent() = default;
@@ -43,6 +49,8 @@ namespace nts {
             };
 
             std::string _component;
+            // Tristate _value;
+
             std::map<std::size_t, std::pair<IComponent*, std::size_t>> _pins;
             std::size_t tick = 0;
 

@@ -10,13 +10,13 @@
 #include "../AComponents.hpp"
 
 namespace nts {
-    class InputComponent: public nts::AComponent {
+    class InputComponent: public AComponent {
         public:
-            InputComponent() {
-                 _value = UNDEFINED;
+            InputComponent(std::string name): AComponent(name) {
+                _value = UNDEFINED;
             };
             ~InputComponent() = default;
-            nts::Tristate compute(std::size_t pin);
+            virtual Tristate compute(std::size_t pin);
             virtual void setLink(std::size_t pin, IComponent &other, std::size_t otherPin);
 
         Tristate _value;

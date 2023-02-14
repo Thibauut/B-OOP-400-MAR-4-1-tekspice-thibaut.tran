@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-SRC	=	nanotekspice.cpp
+SRC	=	NanoTekSpice.cpp
 
 OBJ	=	$(SRC:.cpp=.o)
 

@@ -18,8 +18,6 @@ void nts::FalseComponent::setLink(std::size_t pin, nts::IComponent &other, std::
     if (pin != 1)
         throw Error("False: Pin " + std::to_string(pin) + " doesn't exist");
     AComponent *tmp = dynamic_cast<AComponent*>(&other);
-    // tmp->_pins[otherPin] = this->_pins[pin];
-    // _pins[pin]._component = &other;
     this->_pins[pin] = std::make_pair(&other, otherPin);
     tmp->_pins[otherPin] = std::make_pair(this, pin);
 }
