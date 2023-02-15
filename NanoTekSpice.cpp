@@ -91,9 +91,8 @@ int main(int ac, char **av)
     addComponentToCircuit(*circuit, file);
     //SET LINKS BETWEEN COMPONENTS
     setLinksInCircuit(*circuit, file);
-    // EXECUTION
 
-    //SIGNAL HANDLER
+    // EXECUTION && SIGNAL HANDLER
     signal(SIGINT, signal_handler);
 
     std::string line;
@@ -111,7 +110,6 @@ int main(int ac, char **av)
         else if (line == "simulate")
             circuit->simulate(_tick, isInput, *circuit, file, _valuesToSet);
         else if (line == "loop") {
-            std::cout << "loop" << std::endl;
             circuitLoop(*circuit, file, _valuesToSet, _tick, isInput);
         }
         else {
