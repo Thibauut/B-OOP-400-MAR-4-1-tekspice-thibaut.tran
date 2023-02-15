@@ -12,9 +12,12 @@
 namespace nts {
     class OutputComponent: public nts::AComponent {
         public:
-            OutputComponent() = default;
+            OutputComponent(std::string name): AComponent(name) {
+                _value = UNDEFINED;
+            };
             ~OutputComponent() = default;
-            nts::Tristate compute(std::size_t pin);
-            virtual void setLink(std::size_t pin, IComponent &other, std::size_t otherPin);
+            virtual nts::Tristate compute(std::size_t pin);
+
+            Tristate _value;
     };
 }

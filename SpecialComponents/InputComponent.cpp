@@ -12,11 +12,3 @@ nts::Tristate nts::InputComponent::compute(std::size_t pin) {
         Error::myErr("Input: Pin " + std::to_string(pin) + " doesn't exist");
     return this->_value;
 };
-
-void nts::InputComponent::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin) {
-    if (pin != 1)
-        throw Error("Input: Pin " + std::to_string(pin) + " doesn't exist");
-    AComponent *tmp = dynamic_cast<AComponent*>(&other);
-    this->_pins[pin] = std::make_pair(&other, otherPin);
-    tmp->_pins[otherPin] = std::make_pair(this, pin);
-};

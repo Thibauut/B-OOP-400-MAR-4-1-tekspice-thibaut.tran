@@ -12,55 +12,69 @@
 #include "../SpecialComponents/OutputComponent.hpp"
 
 namespace nts {
-    class Circuit: public IComponent {
+    class Circuit {
         public:
             Circuit() = default;
             ~Circuit() {};
 
             // IComponent
-            void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin) {};
             nts::Tristate compute(std::size_t pin) {};
-            void simulate(std::size_t tick) {};
-            // void setInput(std::size_t pin, nts::Tristate value);
+
+
+            void simulate(std::size_t tick) {
+                for (auto &x: _components) {
+                    x->simulate(tick);
+                }
+            };
 
             // Circuit
             void addComponent(std::string name, Parser &component) {
                 for(auto &x: component._chipsets) {
                     if (x.second == name) {
+                        cout << "component name : " << x.first << endl;
                         if (x.first == "input") {
                             std::unique_ptr<AComponent> input = std::make_unique<nts::InputComponent>(name);
                             _components.push_back(std::move(input));
                             return;
                         }
+                        if (x.first == "output") {
+                            cout << "output" << endl;
+                            std::unique_ptr<AComponent> output = std::make_unique<nts::OutputComponent>(name);
+                            _components.push_back(std::move(output));
+                            return;
+                        }
                     }
                 }
-                // if (name == "input") {
-                //     std::unique_ptr<IComponent> input = std::make_unique<nts::InputComponent>(name);
-                //     _components.push_back(input);
-                //     return;
-                // }
-                //  if (name == "output") {
-                //     std::unique_ptr<IComponent> output = std::make_unique<nts::OutputComponent>(name);
-                //     _components.push_back(output);
-                //     return;
-                // }
             };
 
+            nts::IComponent *getComponent(std::string name, Parser &file) const {
+                int pos = 0;
+                for(auto &x: file._chipsets) {
+                    if (x.second != name)
+                        pos++;
+                    if (x.second == name)
+                        break;
+                }
+                auto &component = _components[pos];
+                return component.get();
+            };
 
-            // nts::IComponent *findComponent(std::string name) const {
-            //     for (auto &x: _components) {
-            //         if (x->getName() == name)
-            //             return x.get();
-            //     }
-            //     return nullptr;
-            // };
-            // Getters
-            // std::string getName() const { return _name; };
-            // std::vector<std::unique_ptr<IComponent>> getComponents() const { return _components; };
-
-            // Setters
-            // void setName(std::string name) { _name = name; };
-            // void setComponents(std::vector<std::unique_ptr<IComponent>> components) { _components = components; };
+            void display() const {
+                cout << "input(s):" << endl;
+                for (auto& component : _components) {
+                    InputComponent* input= dynamic_cast<InputComponent*>(component.get());
+                    if (input != nullptr) {
+                        cout << "  " << input->getName() << " = " << input->compute(1) << endl;
+                    }
+                }
+                cout << "output(s):"<< endl;
+                for (auto& component : _components) {
+                    OutputComponent* output= dynamic_cast<OutputComponent*>(component.get());
+                    if (output != nullptr) {
+                        cout << "  " << output->getName() << " = " << output->compute(1) << endl;
+                    }
+                }
+            }
 
             // Variables
             protected:

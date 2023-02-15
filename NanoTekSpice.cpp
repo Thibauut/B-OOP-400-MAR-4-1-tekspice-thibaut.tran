@@ -8,7 +8,7 @@
 
 #include "IComponents.hpp"
 #include "AComponents.hpp"
-// #include "Circuit/Circuit.hpp"
+#include "Circuit/Circuit.hpp"
 
 #include "SpecialComponents/FalseComponent.cpp"
 #include "SpecialComponents/TrueComponent.cpp"
@@ -33,9 +33,9 @@ int main(int ac, char **av)
         return (84);
     file.parseFile(av[1], file);
 
-    file.print();
+    // file.print();
 
-    // //BOOSTRAP MAIN
+    //BOOSTRAP MAIN
     // std::unique_ptr <nts::IComponent> gate = std::make_unique <nts::AndComponent>();
     // std::unique_ptr <nts::IComponent> input1 = std::make_unique <nts::FalseComponent>();
     // std::unique_ptr <nts::IComponent> input2 = std::make_unique <nts::TrueComponent>();
@@ -51,16 +51,20 @@ int main(int ac, char **av)
     // cout << "!(" << input1->compute(1) << " && " << input2->compute(1) << ") -> " << inverter->compute(2) << std::endl;
 
 
-    // Circuit *circuit = new Circuit();
+    Circuit *circuit = new Circuit();
 
-    // circuit->addComponent("a", file);
-    // circuit->addComponent("b", file);
+    circuit->addComponent("in", file);
+    circuit->addComponent("out", file);
 
 
-    // IComponent *thib = circuit->findComponent("a");
-    // IComponent *thib2 = circuit->findComponent("b");
+    IComponent *thibin1 = circuit->getComponent("in", file);
+    IComponent *thibin2 = circuit->getComponent("out", file);
+
+
+
     // cout << "compute1 = " << thib->compute(1) << endl;
     // cout << "compute2 = " << thib2->compute(1) << endl;
+    // circuit->display();
 
 
     //EXECUTION

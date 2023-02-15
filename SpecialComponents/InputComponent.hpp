@@ -17,7 +17,6 @@ namespace nts {
             };
             ~InputComponent() = default;
             virtual Tristate compute(std::size_t pin);
-            virtual void setLink(std::size_t pin, IComponent &other, std::size_t otherPin);
 
         Tristate _value;
     };

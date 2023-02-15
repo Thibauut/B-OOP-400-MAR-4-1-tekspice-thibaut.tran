@@ -39,14 +39,13 @@ namespace nts {
                 return _pins.at(pin).first->compute(_pins.at(pin).second);
             };
 
-            virtual void display() const {
-                cout << "tick: " << tick << std::endl;
-                cout << "input(s): " << "" << std::endl;
-                cout << "output(s): " << "" << std::endl;
-            };
             virtual void simulate(std::size_t tick) {
                 this->tick = tick;
             };
+
+            std::string getName() const {
+                return _component;
+            }
 
             std::string _component;
             // Tristate _value;
