@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../IComponents.hpp"
+// #include "../IComponents.hpp"
 #include "../SpecialComponents/InputComponent.hpp"
 #include "../SpecialComponents/OutputComponent.hpp"
 #include "../SpecialComponents/ClockComponent.hpp"
@@ -18,16 +18,18 @@ namespace nts {
     class Circuit {
         public:
             Circuit() = default;
-            ~Circuit() {};
+            ~Circuit() {
+                _components.clear();
+            };
 
-            void simulate(std::size_t &tick, bool &isInput, Circuit &circuit, Parser &file, std::string &_inputName, std::string &_inputValue) {
+            void simulate(std::size_t &tick, bool &isInput, Circuit &circuit, Parser &file, std::vector<std::pair<std::string, std::string>> _valuesToSet) {
                 if (isInput == true) {
-                    if (_inputValue == "1" || _inputValue == "0")
-                        circuit.getComponent(_inputName, file)->setValue(std::stoi(_inputValue));
-                    if (_inputValue == "U")
-                        circuit.getComponent(_inputName, file)->setValue(UNDEFINED);
-                    _inputName = "";
-                    _inputValue = "";
+                    for (auto &it : _valuesToSet) {
+                        if (it.second == "1" || it.second == "0")
+                            circuit.getComponent(it.first, file)->setValue(std::stoi(it.second));
+                        if (it.second == "U")
+                            circuit.getComponent(it.first, file)->setValue(UNDEFINED);
+                    }
                 }
                 tick += 1;
             };

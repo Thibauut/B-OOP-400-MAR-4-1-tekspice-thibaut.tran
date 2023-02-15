@@ -2,6 +2,7 @@
 
 .chipsets:
             input               i      #########
+            input j
 output         o
 .links:
 

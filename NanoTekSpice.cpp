@@ -76,6 +76,9 @@ int main(int ac, char **av)
     size_t _tick = 0;
     std::string _inputName = "";
     std::string _inputValue = "";
+
+    std::vector<std::pair<std::string, std::string>> _valuesToSet;
+
     bool isInput = false;
     while (std::getline(std::cin, line)) {
         if (line == "exit")
@@ -83,7 +86,7 @@ int main(int ac, char **av)
         else if (line == "display")
             circuit->display(_tick);
         else if (line == "simulate")
-            circuit->simulate(_tick, isInput, *circuit, file, _inputName, _inputValue);
+            circuit->simulate(_tick, isInput, *circuit, file, _valuesToSet);
         else if (line == "loop") {
             std::cout << "loop" << std::endl;
         }
@@ -96,8 +99,10 @@ int main(int ac, char **av)
                     cout << "Invalid input name" << std::endl;
                 else if (checkIfValueIsValid(_inputValue) == 0)
                     cout << "Invalid input value" << std::endl;
-                else
+                else {
                     isInput = true;
+                    _valuesToSet.push_back(std::make_pair(_inputName, _inputValue));
+                }
             }
             else
                 cout << "Invalid command" << std::endl;

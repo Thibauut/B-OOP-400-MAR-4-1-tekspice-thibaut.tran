@@ -15,11 +15,11 @@ namespace nts {
         public:
             AComponent(std::string name) {
                 _component = name;
-
             };
-            AComponent() = default;
 
-            virtual ~AComponent() = default;
+            virtual ~AComponent() {
+                _pins.clear();
+            };
 
             virtual nts::Tristate compute(std::size_t pin) = 0;
 
@@ -33,9 +33,7 @@ namespace nts {
                 return _pins.at(pin).first->compute(_pins.at(pin).second);
             };
 
-            virtual void simulate(std::size_t tick) {
-                this->tick = tick;
-            };
+            void simulate(std::size_t tick) {};
 
             std::string getName() const {
                 return _component;
@@ -44,11 +42,8 @@ namespace nts {
             virtual void setValue(std::size_t value) = 0;
 
             std::string _component;
-            // Tristate _value;
-
             std::map<std::size_t, std::pair<IComponent*, std::size_t>> _pins;
             std::size_t tick = 0;
-
     };
 };
 
