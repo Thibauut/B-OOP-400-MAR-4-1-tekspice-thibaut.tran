@@ -21,8 +21,12 @@
 
 #include "Parser/Parser.cpp"
 #include <memory>
+#include <csignal>
+#include <unistd.h>
 
 using namespace nts;
+
+volatile sig_atomic_t g_signal_status;
 
 void addComponentToCircuit(Circuit &circuit, Parser &file) {
     for (auto &x: file._chipsets) {
@@ -57,6 +61,23 @@ int checkIfValueIsValid(std::string value) {
     return 0;
 }
 
+void signal_handler(int signal) {
+    g_signal_status = signal;
+}
+
+void circuitLoop(Circuit &circuit, Parser &file, std::vector<std::pair<std::string, std::string>> _valuesToSet, size_t _tick, bool isInput)
+{
+    while (1) {
+        circuit.simulate(_tick, isInput, circuit, file, _valuesToSet);
+        circuit.display(_tick);
+        if (g_signal_status == SIGINT) {
+            std::cout << "Exiting..." << std::endl;
+            exit(0);
+        }
+        sleep(1);
+    }
+}
+
 int main(int ac, char **av)
 {
     // PARSER
@@ -71,6 +92,10 @@ int main(int ac, char **av)
     //SET LINKS BETWEEN COMPONENTS
     setLinksInCircuit(*circuit, file);
     // EXECUTION
+
+    //SIGNAL HANDLER
+    signal(SIGINT, signal_handler);
+
     std::string line;
     std::cout << "> ";
     size_t _tick = 0;
@@ -87,6 +112,7 @@ int main(int ac, char **av)
             circuit->simulate(_tick, isInput, *circuit, file, _valuesToSet);
         else if (line == "loop") {
             std::cout << "loop" << std::endl;
+            circuitLoop(*circuit, file, _valuesToSet, _tick, isInput);
         }
         else {
             std::size_t findEquals = line.find('=');

@@ -74,7 +74,8 @@ void nts::Circuit::display(size_t _tick) const {
     cout << "input(s):" << endl;
     for (auto& component : _components) {
         AComponent* input= dynamic_cast<AComponent*>(component.get());
-        if (input != nullptr && (typeid(*input) == typeid(TrueComponent) ||
+        if (input != nullptr &&
+            (typeid(*input) == typeid(TrueComponent) ||
             typeid(*input) == typeid(FalseComponent) ||
             typeid(*input) == typeid(ClockComponent) ||
             typeid(*input) == typeid(InputComponent))) {
