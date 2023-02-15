@@ -12,3 +12,12 @@ nts::Tristate nts::TrueComponent::compute(std::size_t pin) {
         throw Error("False: Pin " + std::to_string(pin) + " doesn't exist");
     return _value;
 }
+
+void nts::TrueComponent::setValue(std::size_t value) {
+    if (value == 0)
+        this->_value = nts::FALSE;
+    else if (value == 1)
+        this->_value = nts::TRUE;
+    else
+        this->_value = nts::UNDEFINED;
+}

@@ -19,9 +19,7 @@ namespace nts {
             ~FalseComponent() = default;
             nts::Tristate compute(std::size_t pin);
 
-            void setValue(std::size_t pin) {
-            };
-
+            void setValue(std::size_t pin);
             Tristate _value;
     };
 };

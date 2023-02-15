@@ -43,9 +43,9 @@ void setLinksInCircuit(Circuit &circuit, Parser &file) {
     }
 }
 
-int checkIfComponentIsInput(std::string name, Parser &file) {
+int checkIfComponentIsValid(std::string name, Parser &file) {
     for (auto &x: file._chipsets) {
-        if (x.second == name && x.first == "input")
+        if (x.second == name)
             return 1;
     }
     return 0;
@@ -74,11 +74,9 @@ int main(int ac, char **av)
     std::string line;
     std::cout << "> ";
     size_t _tick = 0;
-    std::string _inputName = "";
-    std::string _inputValue = "";
-
+    std::string _componentName = "";
+    std::string _componentValue = "";
     std::vector<std::pair<std::string, std::string>> _valuesToSet;
-
     bool isInput = false;
     while (std::getline(std::cin, line)) {
         if (line == "exit")
@@ -93,22 +91,21 @@ int main(int ac, char **av)
         else {
             std::size_t findEquals = line.find('=');
             if (findEquals != std::string::npos) {
-                _inputName = line.substr(0, findEquals);
-                _inputValue = line.substr(findEquals + 1);
-                if (checkIfComponentIsInput(_inputName, file) == 0)
+                _componentName = line.substr(0, findEquals);
+                _componentValue = line.substr(findEquals + 1);
+                if (checkIfComponentIsValid(_componentName, file) == 0)
                     cout << "Invalid input name" << std::endl;
-                else if (checkIfValueIsValid(_inputValue) == 0)
+                else if (checkIfValueIsValid(_componentValue) == 0)
                     cout << "Invalid input value" << std::endl;
                 else {
                     isInput = true;
-                    _valuesToSet.push_back(std::make_pair(_inputName, _inputValue));
+                    _valuesToSet.push_back(std::make_pair(_componentName, _componentValue));
                 }
             }
             else
                 cout << "Invalid command" << std::endl;
         }
         cout << "> ";
-
     }
     return (0);
 }

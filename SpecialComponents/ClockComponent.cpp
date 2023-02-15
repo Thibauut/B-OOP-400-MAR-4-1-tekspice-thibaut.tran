@@ -12,3 +12,12 @@ nts::Tristate nts::ClockComponent::compute(std::size_t pin) {
         throw Error("Clock: Pin " + std::to_string(pin) + " doesn't exist");
     return this->_value;
 }
+
+void nts::ClockComponent::setValue(std::size_t value) {
+    if (this->_value == nts::UNDEFINED)
+        this->_value = nts::FALSE;
+    else if (this->_value == nts::FALSE)
+        this->_value = nts::TRUE;
+    else if (this->_value == nts::TRUE)
+        this->_value = nts::FALSE;
+}
