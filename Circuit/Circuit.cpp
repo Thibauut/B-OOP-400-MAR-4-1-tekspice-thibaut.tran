@@ -57,20 +57,32 @@ nts::IComponent *nts::Circuit::getComponent(std::string name, Parser &file) cons
     return component.get();
 };
 
+std::string displayValue(size_t value)
+{
+    std::string _value = "";
+    if(value == nts::FALSE)
+        return _value = "0";
+    if(value == nts::TRUE)
+        return _value = "1";
+    if(value == nts::UNDEFINED)
+        return _value = "U";
+    return "";
+}
+
 void nts::Circuit::display(size_t _tick) const {
     cout << "tick: " << _tick << endl;
     cout << "input(s):" << endl;
     for (auto& component : _components) {
         InputComponent* input= dynamic_cast<InputComponent*>(component.get());
         if (input != nullptr) {
-            cout << "  " << input->getName() << ": " << input->compute(1) << endl;
+            cout << "  " << input->getName() << ": " << displayValue(input->compute(1)) << endl;
         }
     }
     cout << "output(s):"<< endl;
     for (auto& component : _components) {
         OutputComponent* output= dynamic_cast<OutputComponent*>(component.get());
         if (output != nullptr) {
-            cout << "  " << output->getName() << ": " << output->compute(1) << endl;
+            cout << "  " << output->getName() << ": " << displayValue(output->compute(1)) << endl;
         }
     }
 }

@@ -51,6 +51,12 @@ int checkIfComponentIsInput(std::string name, Parser &file) {
     return 0;
 }
 
+int checkIfValueIsValid(std::string value) {
+    if (value == "0" || value == "1" || value == "U")
+        return 1;
+    return 0;
+}
+
 int main(int ac, char **av)
 {
     // PARSER
@@ -74,12 +80,10 @@ int main(int ac, char **av)
     while (std::getline(std::cin, line)) {
         if (line == "exit")
             return 0;
-        else if (line == "display") {
+        else if (line == "display")
             circuit->display(_tick);
-        }
-        else if (line == "simulate") {
+        else if (line == "simulate")
             circuit->simulate(_tick, isInput, *circuit, file, _inputName, _inputValue);
-        }
         else if (line == "loop") {
             std::cout << "loop" << std::endl;
         }
@@ -90,7 +94,7 @@ int main(int ac, char **av)
                 _inputValue = line.substr(findEquals + 1);
                 if (checkIfComponentIsInput(_inputName, file) == 0)
                     cout << "Invalid input name" << std::endl;
-                else if (_inputValue == "")
+                else if (checkIfValueIsValid(_inputValue) == 0)
                     cout << "Invalid input value" << std::endl;
                 else
                     isInput = true;

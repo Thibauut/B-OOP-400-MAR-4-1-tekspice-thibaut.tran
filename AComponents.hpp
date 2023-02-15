@@ -12,16 +12,10 @@
 namespace nts {
     class AComponent: public IComponent {
 
-        // struct Pin {
-        //     std::unique_ptr<IComponent> _component;
-        //     size_t _pin;
-        // };
-
         public:
             AComponent(std::string name) {
                 _component = name;
-                // _pins[pin] = pin;
-                // _pins[pin]._state = value;
+
             };
             AComponent() = default;
 

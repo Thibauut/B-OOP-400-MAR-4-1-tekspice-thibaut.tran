@@ -18,12 +18,7 @@ namespace nts {
             ~ClockComponent() = default;
 
             nts::Tristate compute(std::size_t pin);
-            void setValue(std::size_t pin) {
-                // if (pin == 1)
-                //     _value = TRUE;
-                // else
-                //     _value = FALSE;
-            };
+            void setValue(std::size_t pin) {};
 
             Tristate _value;
     };

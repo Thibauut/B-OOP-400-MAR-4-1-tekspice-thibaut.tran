@@ -20,13 +20,12 @@ namespace nts {
             Circuit() = default;
             ~Circuit() {};
 
-            // IComponent
-            // nts::Tristate compute(std::size_t pin) {};
-
-
             void simulate(std::size_t &tick, bool &isInput, Circuit &circuit, Parser &file, std::string &_inputName, std::string &_inputValue) {
                 if (isInput == true) {
-                    circuit.getComponent(_inputName, file)->setValue(std::stoi(_inputValue));
+                    if (_inputValue == "1" || _inputValue == "0")
+                        circuit.getComponent(_inputName, file)->setValue(std::stoi(_inputValue));
+                    if (_inputValue == "U")
+                        circuit.getComponent(_inputName, file)->setValue(UNDEFINED);
                     _inputName = "";
                     _inputValue = "";
                 }
