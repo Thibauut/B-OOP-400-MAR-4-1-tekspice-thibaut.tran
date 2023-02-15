@@ -51,14 +51,14 @@ int main(int ac, char **av)
     // cout << "!(" << input1->compute(1) << " && " << input2->compute(1) << ") -> " << inverter->compute(2) << std::endl;
 
 
-    Circuit *circuit = new Circuit();
+    // Circuit *circuit = new Circuit();
 
-    circuit->addComponent("in", file);
-    circuit->addComponent("out", file);
+    // circuit->addComponent("in", file);
+    // circuit->addComponent("out", file);
 
 
-    IComponent *thibin1 = circuit->getComponent("in", file);
-    IComponent *thibin2 = circuit->getComponent("out", file);
+    // IComponent *thibin1 = circuit->getComponent("in", file);
+    // IComponent *thibin2 = circuit->getComponent("out", file);
 
 
 
