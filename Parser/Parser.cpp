@@ -52,6 +52,19 @@ void checkComponentValidName(Parser &list) {
     return;
 }
 
+//CHECK IF LINKS ARE VALID
+void checkIfLinkIsValid(std::string link) {
+    if (link.find(":") == std::string::npos)
+        Error::myErr("Error: Invalid link");
+    else {
+        string name = link.substr(link.find(":"));
+        string pin = link.substr(link.find(":") + 1);
+        if (name.empty() || pin.empty())
+            Error::myErr("Error: Invalid link");
+    }
+    return;
+}
+
 void Parser::parseFile(std::string file, Parser &list)
 {
     //INIT VARIABLES AND OPEN FILE
@@ -79,21 +92,28 @@ void Parser::parseFile(std::string file, Parser &list)
             ss >> name;
             if (current_statement == "chipsets")
                 list._chipsets.push_back(make_pair(content, name));
-            if (current_statement == "links")
+            if (current_statement == "links") {
                 list._links.push_back(make_pair(content, name));
+            }
         }
     }
     if (!foundChipset)
         Error::myErr("Error: \'.chipsets:\' statement not found in the configuration file");
-
     //REMOVE FIRST ELEMENT OF VECTOR (REMOVING: .chipsets: AND .links:)
     list._chipsets.erase(list._chipsets.begin());
     list._links.erase(list._links.begin());
-
+    //CHECK IF CHIPSET LIST IS EMPTY
+    if (list._chipsets.empty())
+        Error::myErr("Error: No chipset found in the configuration file");
     //PARSING ERROR CHECK
     checkComponentType(list);
     checkComponentSameName(list);
     checkComponentValidName(list);
+    //CHECK IF LINKS ARE VALID
+    for (auto& x: list._links) {
+        checkIfLinkIsValid(x.first);
+        checkIfLinkIsValid(x.second);
+    }
 }
 
 void Parser::print() {

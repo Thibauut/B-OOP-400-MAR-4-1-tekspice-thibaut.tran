@@ -64,51 +64,52 @@ int main(int ac, char **av)
     if (ac != 2)
         return (84);
     file.parseFile(av[1], file);
+    file.print();
     //CREATE CIRCUIT
-    Circuit *circuit = new Circuit();
-    //ADD COMPONENTS TO CIRCUIT
-    addComponentToCircuit(*circuit, file);
-    //SET LINKS BETWEEN COMPONENTS
-    setLinksInCircuit(*circuit, file);
+    // Circuit *circuit = new Circuit();
+    // //ADD COMPONENTS TO CIRCUIT
+    // addComponentToCircuit(*circuit, file);
+    // //SET LINKS BETWEEN COMPONENTS
+    // setLinksInCircuit(*circuit, file);
     //EXECUTION
-    std::string line;
-    std::cout << "> ";
-    size_t _tick = 0;
-    std::string _inputName = "";
-    std::string _inputValue = "";
+    // std::string line;
+    // std::cout << "> ";
+    // size_t _tick = 0;
+    // std::string _inputName = "";
+    // std::string _inputValue = "";
 
-    std::vector<std::pair<std::string, std::string>> _valuesToSet;
+    // std::vector<std::pair<std::string, std::string>> _valuesToSet;
 
-    bool isInput = false;
-    while (std::getline(std::cin, line)) {
-        if (line == "exit")
-            return 0;
-        else if (line == "display")
-            circuit->display(_tick);
-        else if (line == "simulate")
-            circuit->simulate(_tick, isInput, *circuit, file, _valuesToSet);
-        else if (line == "loop") {
-            std::cout << "loop" << std::endl;
-        }
-        else {
-            std::size_t findEquals = line.find('=');
-            if (findEquals != std::string::npos) {
-                _inputName = line.substr(0, findEquals);
-                _inputValue = line.substr(findEquals + 1);
-                if (checkIfComponentIsInput(_inputName, file) == 0)
-                    cout << "Invalid input name" << std::endl;
-                else if (checkIfValueIsValid(_inputValue) == 0)
-                    cout << "Invalid input value" << std::endl;
-                else {
-                    isInput = true;
-                    _valuesToSet.push_back(std::make_pair(_inputName, _inputValue));
-                }
-            }
-            else
-                cout << "Invalid command" << std::endl;
-        }
-        cout << "> ";
+    // bool isInput = false;
+    // while (std::getline(std::cin, line)) {
+    //     if (line == "exit")
+    //         return 0;
+    //     else if (line == "display")
+    //         circuit->display(_tick);
+    //     else if (line == "simulate")
+    //         circuit->simulate(_tick, isInput, *circuit, file, _valuesToSet);
+    //     else if (line == "loop") {
+    //         std::cout << "loop" << std::endl;
+    //     }
+    //     else {
+    //         std::size_t findEquals = line.find('=');
+    //         if (findEquals != std::string::npos) {
+    //             _inputName = line.substr(0, findEquals);
+    //             _inputValue = line.substr(findEquals + 1);
+    //             if (checkIfComponentIsInput(_inputName, file) == 0)
+    //                 cout << "Invalid input name" << std::endl;
+    //             else if (checkIfValueIsValid(_inputValue) == 0)
+    //                 cout << "Invalid input value" << std::endl;
+    //             else {
+    //                 isInput = true;
+    //                 _valuesToSet.push_back(std::make_pair(_inputName, _inputValue));
+    //             }
+    //         }
+    //         else
+    //             cout << "Invalid command" << std::endl;
+    //     }
+    //     cout << "> ";
 
-    }
-    return (0);
+    // }
+    // return (0);
 }
