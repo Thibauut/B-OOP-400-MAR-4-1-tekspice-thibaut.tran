@@ -13,9 +13,15 @@
 namespace nts {
     class TrueComponent: public nts::AComponent {
         public:
-            TrueComponent() = default;
+            TrueComponent(std::string name): AComponent(name) {
+                _value = TRUE;
+            };
             ~TrueComponent() = default;
 
             nts::Tristate compute(std::size_t pin);
+            void setValue(std::size_t pin) {
+            };
+
+            Tristate _value;
     };
 };

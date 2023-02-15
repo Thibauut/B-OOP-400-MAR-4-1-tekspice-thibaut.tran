@@ -11,7 +11,6 @@
 #include <string>
 #include "../Parser/Parser.hpp"
 
-
 class Error: public std::exception {
     public:
         Error(const std::string& message);
@@ -25,7 +24,7 @@ class Error: public std::exception {
             try {
                 throw Error(msg);
             } catch (Error &e) {
-                cout << e.what() << endl;
+                std::cout << e.what() << endl;
                 exit(84);
             }
         };

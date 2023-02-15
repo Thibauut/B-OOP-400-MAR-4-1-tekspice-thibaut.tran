@@ -45,7 +45,9 @@ namespace nts {
 
             std::string getName() const {
                 return _component;
-            }
+            };
+
+            virtual void setValue(std::size_t value) = 0;
 
             std::string _component;
             // Tristate _value;

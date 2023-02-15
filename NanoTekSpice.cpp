@@ -8,7 +8,7 @@
 
 #include "IComponents.hpp"
 #include "AComponents.hpp"
-#include "Circuit/Circuit.hpp"
+#include "Circuit/Circuit.cpp"
 
 #include "SpecialComponents/FalseComponent.cpp"
 #include "SpecialComponents/TrueComponent.cpp"
@@ -24,80 +24,82 @@
 
 using namespace nts;
 
+void addComponentToCircuit(Circuit &circuit, Parser &file) {
+    for (auto &x: file._chipsets) {
+        circuit.addComponent(x.second, file);
+    }
+}
+
+void setLinksInCircuit(Circuit &circuit, Parser &file) {
+    for (auto &x: file._links) {
+        //noms des composents
+        string firstComponent = x.first.substr(0, x.first.find(":"));
+        string otherComponent = x.second.substr(0, x.second.find(":"));
+        //pins des composants
+        size_t _pin = std::stoi(x.first.substr(x.first.find(":") + 1));
+        size_t _otherPin = std::stoi(x.second.substr(x.second.find(":") + 1));
+        //setlinks
+        circuit.getComponent(firstComponent, file)->setLink(_pin, *circuit.getComponent(otherComponent, file), _otherPin);
+    }
+}
+
+int checkIfComponentIsInput(std::string name, Parser &file) {
+    for (auto &x: file._chipsets) {
+        if (x.second == name && x.first == "input")
+            return 1;
+    }
+    return 0;
+}
+
 int main(int ac, char **av)
 {
     // PARSER
-    AComponent *test;
     Parser file;
     if (ac != 2)
         return (84);
     file.parseFile(av[1], file);
-
-    // file.print();
-
-    //BOOSTRAP MAIN
-    // std::unique_ptr <nts::IComponent> gate = std::make_unique <nts::AndComponent>();
-    // std::unique_ptr <nts::IComponent> input1 = std::make_unique <nts::FalseComponent>();
-    // std::unique_ptr <nts::IComponent> input2 = std::make_unique <nts::TrueComponent>();
-    // std::unique_ptr <nts::IComponent> inverter = std::make_unique<nts::NotComponent>();
-    // gate->setLink(1, *input1, 1);
-    // gate->setLink(2, *input2, 1);
-    // inverter->setLink (1, *gate, 3);
-
-    // gate->simulate(1);
-    // input1->simulate(1);
-    // input2->simulate(1);
-
-    // cout << "!(" << input1->compute(1) << " && " << input2->compute(1) << ") -> " << inverter->compute(2) << std::endl;
-
-
-    // Circuit *circuit = new Circuit();
-
-    // circuit->addComponent("in", file);
-    // circuit->addComponent("out", file);
-
-
-    // IComponent *thibin1 = circuit->getComponent("in", file);
-    // IComponent *thibin2 = circuit->getComponent("out", file);
-
-
-
-    // cout << "compute1 = " << thib->compute(1) << endl;
-    // cout << "compute2 = " << thib2->compute(1) << endl;
-    // circuit->display();
-
-
+    //CREATE CIRCUIT
+    Circuit *circuit = new Circuit();
+    //ADD COMPONENTS TO CIRCUIT
+    addComponentToCircuit(*circuit, file);
+    //SET LINKS BETWEEN COMPONENTS
+    setLinksInCircuit(*circuit, file);
     //EXECUTION
-    // std::string line;
-    // AComponent *component;
-    // std::cout << "> ";
-    // int _tick = 0;
-    // while (std::getline(std::cin, line)) {
-    //     if (line == "exit")
-    //         return 0;
-    //     else if (line == "display") {
-    //         cout << "display" << std::endl;
-    //         // cout << "tick: " << _tick << std::endl;
-    //         // cout << "input(s):" << std::endl;
-    //         // // cout << "  " << component->compute() << ":<< << std::endl;
-    //         // cout << "output(s):" << std::endl;
-    //     }
-    //     else if (line == "simulate") {
-    //         // component->simulate(_tick);
-    //         // _tick += 1;
-    //         cout << "Simulate" << std::endl;
-    //     }
-    //     else if (line == "loop") {
-    //         cout << "Loop" << std::endl;
-    //     }
-    //     else if (line == "dump") {
-    //         cout << "Dump" << std::endl;
-    //     }
-    //     else {
-    //         cout << "Invalid command" << std::endl;
-    //     }
-    //     cout << "> ";
+    std::string line;
+    std::cout << "> ";
+    size_t _tick = 0;
+    std::string _inputName = "";
+    std::string _inputValue = "";
+    bool isInput = false;
+    while (std::getline(std::cin, line)) {
+        if (line == "exit")
+            return 0;
+        else if (line == "display") {
+            circuit->display(_tick);
+        }
+        else if (line == "simulate") {
+            circuit->simulate(_tick, isInput, *circuit, file, _inputName, _inputValue);
+        }
+        else if (line == "loop") {
+            std::cout << "loop" << std::endl;
+        }
+        else {
+            std::size_t findEquals = line.find('=');
+            if (findEquals != std::string::npos) {
+                _inputName = line.substr(0, findEquals);
+                _inputValue = line.substr(findEquals + 1);
+                if (checkIfComponentIsInput(_inputName, file) == 0)
+                    cout << "Invalid input name" << std::endl;
+                else if (_inputValue == "")
+                    cout << "Invalid input value" << std::endl;
+                else
+                    isInput = true;
+            }
+            else
+                cout << "Invalid command" << std::endl;
+        }
+        cout << "> ";
 
-    // }
-    // return (0);
+    }
+    return (0);
 }

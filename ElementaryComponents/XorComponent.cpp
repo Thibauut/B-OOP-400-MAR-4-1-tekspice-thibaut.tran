@@ -9,9 +9,9 @@
 
 nts::Tristate XorComponent::compute(std::size_t pin) {
     if (pin == 3) {
-        if (this->_pins[0]._state == nts::UNDEFINED || this->_pins[1]._state == nts::UNDEFINED)
+        if (this->_pins[0].second == nts::UNDEFINED || this->_pins[1].second == nts::UNDEFINED)
             return nts::UNDEFINED;
-        if (this->_pins[0]._state == this->_pins[1]._state)
+        if (this->_pins[0].second == this->_pins[1].second)
             return nts::FALSE;
         return nts::TRUE;
     }

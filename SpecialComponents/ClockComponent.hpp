@@ -12,9 +12,19 @@
 namespace nts {
     class ClockComponent: public nts::AComponent {
         public:
-            ClockComponent() = default;
+            ClockComponent(std::string name): AComponent(name) {
+                _value = UNDEFINED;
+            };
             ~ClockComponent() = default;
 
             nts::Tristate compute(std::size_t pin);
+            void setValue(std::size_t pin) {
+                // if (pin == 1)
+                //     _value = TRUE;
+                // else
+                //     _value = FALSE;
+            };
+
+            Tristate _value;
     };
 }

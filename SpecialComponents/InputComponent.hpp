@@ -16,7 +16,8 @@ namespace nts {
                 _value = UNDEFINED;
             };
             ~InputComponent() = default;
-            virtual Tristate compute(std::size_t pin);
+            Tristate compute(std::size_t pin);
+            void setValue(std::size_t pin);
 
         Tristate _value;
     };
