@@ -24,11 +24,11 @@ namespace nts {
 
             void simulate(std::size_t &tick, bool &isInput, Circuit &circuit, Parser &file, std::vector<std::pair<std::string, std::string>> _valuesToSet) {
                 if (isInput == true) {
-                    for (auto &it : _valuesToSet) {
-                        if (it.second == "1" || it.second == "0")
-                            circuit.getComponent(it.first, file)->setValue(std::stoi(it.second));
-                        if (it.second == "U")
-                            circuit.getComponent(it.first, file)->setValue(UNDEFINED);
+                    for (auto &x : _valuesToSet) {
+                        if (x.second == "1" || x.second == "0")
+                            circuit.getComponent(x.first, file)->setValue(std::stoi(x.second));
+                        if (x.second == "U")
+                            circuit.getComponent(x.first, file)->setValue(UNDEFINED);
                     }
                 }
                 tick += 1;
