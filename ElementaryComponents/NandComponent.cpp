@@ -14,9 +14,9 @@ nts::Tristate nts::NandComponent::compute(std::size_t pin) {
     nts::Tristate input2 = this->_pins[2].first->compute(this->_pins[2].second);
 
     if (input1 == nts::Tristate::FALSE || input2 == nts::Tristate::FALSE)
-        return nts::Tristate::TRUE;
+        return this->_value = nts::Tristate::TRUE;
     else if (input1 == nts::Tristate::TRUE && input2 == nts::Tristate::TRUE)
-        return nts::Tristate::FALSE;
+        return this->_value = nts::Tristate::FALSE;
     else
-        return nts::Tristate::UNDEFINED;
+        return this->_value = nts::Tristate::UNDEFINED;
 }

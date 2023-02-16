@@ -9,12 +9,6 @@
 #include "FalseComponent.hpp"
 
 nts::Tristate nts::FalseComponent::compute(std::size_t pin) {
-    try {
-        if (pin != 1)
-            throw Error("Clock: Pin " + std::to_string(pin) + " doesn't exist on component");
-    } catch (Error &e) {
-        std::cerr << e.what() << ": ";
-    }
     return this->_value;
 }
 

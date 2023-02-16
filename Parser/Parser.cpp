@@ -52,15 +52,39 @@ void checkComponentValidName(Parser &list) {
     return;
 }
 
+//CHECK IF CHIPSET PIN IS VALID
+void checkChipsetsPins(std::string name, std::string pin, Parser &list) {
+    std::string _type = "";
+    for (auto &x : list._chipsets) {
+        if(x.second == name)
+            _type = x.first;
+    }
+    if (_type == "clock" || _type == "false" || _type == "true" || _type == "input" || _type == "output") {
+        if (pin != "1")
+            Error::myErr("Error: Invalid pin");
+    }
+    else if (_type == "and" || _type == "or" || _type == "xor" || _type == "not") {
+        if (pin != "1" && pin != "2" && pin != "3")
+            Error::myErr("Error: Invalid pin");
+    }
+    else if (_type == "4001" || _type == "4011" || _type == "4030" || _type == "4069" || _type == "4071" || _type == "4081") {
+        if (pin != "1" && pin != "2" && pin != "3" && pin != "4" && pin != "5" && pin != "6"  && pin != "8" && pin != "9" && pin != "10" && pin != "11" && pin != "12" && pin != "13")
+            Error::myErr("Error: Invalid pin");
+    }
+    return;
+}
+
 //CHECK IF LINKS ARE VALID
-void checkIfLinkIsValid(std::string link) {
+void checkIfLinkIsValid(std::string link, Parser &list) {
     if (link.find(":") == std::string::npos)
         Error::myErr("Error: Invalid link");
     else {
-        string name = link.substr(link.find(":"));
+        string name = link.substr(0, link.find(":"));
         string pin = link.substr(link.find(":") + 1);
         if (name.empty() || pin.empty())
             Error::myErr("Error: Invalid link");
+        else
+            checkChipsetsPins(name, pin, list);
     }
     return;
 }
@@ -111,8 +135,8 @@ void Parser::parseFile(std::string file, Parser &list)
     checkComponentValidName(list);
     //CHECK IF LINKS ARE VALID
     for (auto& x: list._links) {
-        checkIfLinkIsValid(x.first);
-        checkIfLinkIsValid(x.second);
+        checkIfLinkIsValid(x.first, list);
+        checkIfLinkIsValid(x.second, list);
     }
 }
 

@@ -15,10 +15,10 @@ nts::Tristate nts::XorComponent::compute(std::size_t pin) {
 
     if ((input1 == nts::Tristate::TRUE && input2 == nts::Tristate::FALSE) ||
         (input1 == nts::Tristate::FALSE && input2 == nts::Tristate::TRUE))
-        return nts::Tristate::TRUE;
+        return this->_value = nts::Tristate::TRUE;
     else if ((input1 == nts::Tristate::TRUE && input2 == nts::Tristate::TRUE) ||
             (input1 == nts::Tristate::FALSE && input2 == nts::Tristate::FALSE))
-        return nts::Tristate::FALSE;
+        return this->_value = nts::Tristate::FALSE;
     else
-        return nts::Tristate::UNDEFINED;
+        return this->_value = nts::Tristate::UNDEFINED;
 }
