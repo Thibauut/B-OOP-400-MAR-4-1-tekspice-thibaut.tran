@@ -5,3 +5,19 @@
 ** 4071Component.hpp
 */
 
+#pragma once
+
+#include "../AComponents.hpp"
+
+namespace nts {
+    class Component4071 : public AComponent {
+        public:
+            Component4071(std::string name): nts::AComponent(name) {};
+            ~Component4071() = default;
+
+            nts::Tristate compute(std::size_t pin);
+            void setValue(std::size_t pin) {};
+
+            nts::Tristate _value;
+    };
+}

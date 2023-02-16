@@ -23,6 +23,9 @@
 #include "../GatesComponents/4001Component.cpp"
 #include "../GatesComponents/4011Component.cpp"
 #include "../GatesComponents/4030Component.cpp"
+#include "../GatesComponents/4069Component.cpp"
+#include "../GatesComponents/4071Component.cpp"
+#include "../GatesComponents/4081Component.cpp"
 
 namespace nts {
     class Circuit {

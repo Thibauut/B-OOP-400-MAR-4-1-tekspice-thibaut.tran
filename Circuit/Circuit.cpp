@@ -89,6 +89,21 @@ void addGateComponent(std::string name, Parser &component, std::pair<std::string
         _components.push_back(std::move(norComponent));
         return;
     }
+    if (x.first == "4069") {
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4069>(name);
+        _components.push_back(std::move(norComponent));
+        return;
+    }
+    if (x.first == "4071") {
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4071>(name);
+        _components.push_back(std::move(norComponent));
+        return;
+    }
+    if (x.first == "4081") {
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4081>(name);
+        _components.push_back(std::move(norComponent));
+        return;
+    }
     return;
 }
 
