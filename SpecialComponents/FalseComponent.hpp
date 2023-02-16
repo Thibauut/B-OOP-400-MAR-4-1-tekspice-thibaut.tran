@@ -14,7 +14,7 @@ namespace nts {
     class FalseComponent: public nts::AComponent {
         public:
             FalseComponent(std::string name): AComponent(name) {
-                _value = FALSE;
+                _value = UNDEFINED;
             };
             ~FalseComponent() = default;
             nts::Tristate compute(std::size_t pin);

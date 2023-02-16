@@ -114,6 +114,8 @@ int main(int ac, char **av)
                 else {
                     isInput = true;
                     _valuesToSet.push_back(std::make_pair(_componentName, _componentValue));
+                    AComponent *tmp = dynamic_cast<AComponent*>(circuit->getComponent(_componentName, file));
+                    tmp->_resetComp = false;
                 }
             }
             else

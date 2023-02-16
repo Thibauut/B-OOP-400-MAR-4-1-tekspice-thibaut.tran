@@ -111,7 +111,7 @@ void nts::Circuit::display(size_t _tick) const {
     cout << "output(s):"<< endl;
     for (auto& component : _components) {
         OutputComponent* output= dynamic_cast<OutputComponent*>(component.get());
-        if (output != nullptr) {
+        if (output != nullptr && typeid(*output) != typeid(TrueComponent)) {
             cout << "  " << output->getName() << ": " << displayValue(output->compute(1)) << endl;
         }
     }

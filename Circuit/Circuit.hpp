@@ -31,11 +31,19 @@ namespace nts {
             void simulate(std::size_t &tick, bool &isInput, Circuit &circuit, Parser &file, std::vector<std::pair<std::string, std::string>> _valuesToSet) {
                 if (isInput == true) {
                     for (auto &x : _valuesToSet) {
-                        if (x.second == "1" || x.second == "0")
+                        if (x.second == "1" || x.second == "0") {
+                            AComponent *tmp = dynamic_cast<AComponent*>(circuit.getComponent(x.first, file));
                             circuit.getComponent(x.first, file)->setValue(std::stoi(x.second));
+                            if (typeid(*tmp) == typeid(ClockComponent)) {
+                                if (_valuesToSet.size() > 1)
+                                    _valuesToSet.erase(begin(_valuesToSet));
+                                tmp->_resetComp = true;
+                            }
+                        }
                         if (x.second == "U")
                             circuit.getComponent(x.first, file)->setValue(UNDEFINED);
                     }
+
                 }
                 tick += 1;
             };

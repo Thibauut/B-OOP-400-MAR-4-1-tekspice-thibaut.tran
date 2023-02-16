@@ -13,10 +13,10 @@ nts::Tristate nts::FalseComponent::compute(std::size_t pin) {
 }
 
 void nts::FalseComponent::setValue(std::size_t value) {
-    if (value == 0)
-        this->_value = nts::FALSE;
-    else if (value == 1)
-        this->_value = nts::TRUE;
-    else
+    if (value == nts::UNDEFINED)
         this->_value = nts::UNDEFINED;
+    else if (value == nts::FALSE)
+        this->_value = nts::FALSE;
+    else if (value == nts::TRUE)
+        this->_value = nts::TRUE;
 }

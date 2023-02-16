@@ -6,9 +6,14 @@
 */
 
 #include "OutputComponent.hpp"
+#include "TrueComponent.hpp"
+#include "FalseComponent.hpp"
 
 nts::Tristate nts::OutputComponent::compute(std::size_t pin) {
-    if (pin == 0)
-        return this->_value;
+    AComponent *tmp = dynamic_cast<AComponent*>(this->_pins[1].first);
+    if (typeid(*tmp) == typeid(TrueComponent))
+        return nts::TRUE;
+    if (typeid(*tmp) == typeid(FalseComponent))
+        return nts::FALSE;
     return this->_pins[pin].first->compute(this->_pins[pin].second);
 }
