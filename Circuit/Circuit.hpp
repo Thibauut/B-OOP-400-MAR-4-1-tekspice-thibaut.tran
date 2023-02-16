@@ -32,9 +32,9 @@ namespace nts {
                 if (isInput == true) {
                     for (auto &x : _valuesToSet) {
                         if (x.second == "1" || x.second == "0")
-                            circuit.getComponent(x.first, file)->compute(std::stoi(x.second));
+                            circuit.getComponent(x.first, file)->setValue(std::stoi(x.second));
                         if (x.second == "U")
-                            circuit.getComponent(x.first, file)->compute(UNDEFINED);
+                            circuit.getComponent(x.first, file)->setValue(UNDEFINED);
                     }
                 }
                 tick += 1;

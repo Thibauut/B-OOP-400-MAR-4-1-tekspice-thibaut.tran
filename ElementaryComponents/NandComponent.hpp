@@ -15,6 +15,7 @@ namespace nts {
             NandComponent(std::string name): nts::AComponent(name) {};
             ~NandComponent() = default;
             nts::Tristate compute(std::size_t pin);
+            void setValue(std::size_t pin) {};
 
             nts::Tristate _value;
     };
