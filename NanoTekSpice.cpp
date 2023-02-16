@@ -10,15 +10,6 @@
 #include "AComponents.hpp"
 #include "Circuit/Circuit.cpp"
 
-#include "SpecialComponents/FalseComponent.cpp"
-#include "SpecialComponents/TrueComponent.cpp"
-#include "SpecialComponents/ClockComponent.cpp"
-#include "SpecialComponents/InputComponent.cpp"
-#include "SpecialComponents/OutputComponent.cpp"
-
-#include "ElementaryComponents/AndComponent.cpp"
-#include "ElementaryComponents/NotComponent.cpp"
-
 #include "Parser/Parser.cpp"
 #include <memory>
 #include <csignal>
@@ -49,7 +40,7 @@ void setLinksInCircuit(Circuit &circuit, Parser &file) {
 
 int checkIfComponentIsValid(std::string name, Parser &file) {
     for (auto &x: file._chipsets) {
-        if (x.second == name)
+        if (x.second == name && x.first == "input" || x.first == "clock" || x.first == "true" || x.first == "false")
             return 1;
     }
     return 0;
@@ -109,9 +100,8 @@ int main(int ac, char **av)
             circuit->display(_tick);
         else if (line == "simulate")
             circuit->simulate(_tick, isInput, *circuit, file, _valuesToSet);
-        else if (line == "loop") {
+        else if (line == "loop")
             circuitLoop(*circuit, file, _valuesToSet, _tick, isInput);
-        }
         else {
             std::size_t findEquals = line.find('=');
             if (findEquals != std::string::npos) {

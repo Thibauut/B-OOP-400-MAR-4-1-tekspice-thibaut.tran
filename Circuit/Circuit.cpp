@@ -37,10 +37,36 @@ void addSpecialComponent(std::string name, Parser &component, std::pair<std::str
     return;
 }
 
+void addElementaryComponent(std::string name, Parser &component, std::pair<std::string, std::string> x, std::vector<std::unique_ptr<nts::IComponent>> &_components)
+{
+    if (x.first == "and") {
+        std::unique_ptr<nts::IComponent> andComponent = std::make_unique<nts::AndComponent>(name);
+        _components.push_back(std::move(andComponent));
+        return;
+    }
+    if (x.first == "not") {
+        std::unique_ptr<nts::IComponent> notComponent = std::make_unique<nts::NotComponent>(name);
+        _components.push_back(std::move(notComponent));
+        return;
+    }
+    if (x.first == "or") {
+        std::unique_ptr<nts::IComponent> orComponent = std::make_unique<nts::OrComponent>(name);
+        _components.push_back(std::move(orComponent));
+        return;
+    }
+    if (x.first == "xor") {
+        std::unique_ptr<nts::IComponent> xorComponent = std::make_unique<nts::XorComponent>(name);
+        _components.push_back(std::move(xorComponent));
+        return;
+    }
+    return;
+}
+
 void nts::Circuit::addComponent(std::string name, Parser &component) {
     for(auto &x: component._chipsets) {
         if (x.second == name) {
             addSpecialComponent(name, component, x, _components);
+            addElementaryComponent(name, component, x, _components);
         }
     }
 };
@@ -72,7 +98,7 @@ std::string displayValue(size_t value)
 void nts::Circuit::display(size_t _tick) const {
     cout << "tick: " << _tick << endl;
     cout << "input(s):" << endl;
-    for (auto& component : _components) {
+    for (auto& component: _components) {
         AComponent* input= dynamic_cast<AComponent*>(component.get());
         if (input != nullptr &&
             (typeid(*input) == typeid(TrueComponent) ||

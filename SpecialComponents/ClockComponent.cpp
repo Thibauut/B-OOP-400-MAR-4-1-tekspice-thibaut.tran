@@ -8,8 +8,6 @@
 #include "ClockComponent.hpp"
 
 nts::Tristate nts::ClockComponent::compute(std::size_t pin) {
-    if (pin != 1)
-        throw Error("Clock: Pin " + std::to_string(pin) + " doesn't exist");
     return this->_value;
 }
 

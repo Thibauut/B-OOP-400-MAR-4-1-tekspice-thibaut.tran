@@ -8,9 +8,10 @@
 #include "NotComponent.hpp"
 
 nts::Tristate nts::NotComponent::compute(std::size_t pin) {
-    if (this->_pins[0].second == nts::UNDEFINED)
-        return nts::UNDEFINED;
-    if (this->_pins[0].second == nts::TRUE)
-        return nts::FALSE;
-    return nts::TRUE;
+    nts::Tristate input1 = this->_pins[1].first->compute(this->_pins[1].second);
+    if (input1 == nts::UNDEFINED)
+        return this->_value = nts::UNDEFINED;
+    if (input1 == nts::TRUE)
+        return this->_value = nts::FALSE;
+    return this->_value = nts::TRUE;
 };

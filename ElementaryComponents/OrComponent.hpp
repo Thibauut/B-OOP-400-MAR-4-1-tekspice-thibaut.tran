@@ -9,9 +9,14 @@
 
 #include "../AComponents.hpp"
 
-class OrComponent : public nts::AComponent {
-    public:
-        OrComponent() = default;
-        ~OrComponent() = default;
-        nts::Tristate compute(std::size_t pin);
-};
+namespace nts {
+    class OrComponent: public nts::AComponent {
+        public:
+            OrComponent(std::string name): nts::AComponent(name) {};
+            ~OrComponent() = default;
+            nts::Tristate compute(std::size_t pin);
+            void setValue(std::size_t pin) {};
+
+            nts::Tristate _value;
+    };
+}

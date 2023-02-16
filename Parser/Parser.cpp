@@ -11,7 +11,7 @@
 void checkComponentType(Parser &list) {
     for (auto &x : list._chipsets) {
         if (x.first != "input" && x.first != "output" && x.first != "clock" && x.first != "true" && x.first != "false"
-        && x.first != "and" && x.first != "or" && x.first != "x.firstor" && x.first != "not" &&
+        && x.first != "and" && x.first != "or" && x.first != "xor" && x.first != "not" &&
         x.first != "4001" && x.first != "4011" && x.first != "4030" && x.first != "4069" && x.first != "4071" && x.first != "4081" &&
         x.first != "4008" && x.first != "4013" && x.first != "4017" && x.first != "4040" && x.first != "4094" && x.first != "4514" && x.first != "4801" && x.first != "2716")
              Error::myErr("Error: Invalid component");

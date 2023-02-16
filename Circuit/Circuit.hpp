@@ -7,12 +7,16 @@
 
 #pragma once
 
-// #include "../IComponents.hpp"
-#include "../SpecialComponents/InputComponent.hpp"
-#include "../SpecialComponents/OutputComponent.hpp"
-#include "../SpecialComponents/ClockComponent.hpp"
-#include "../SpecialComponents/TrueComponent.hpp"
-#include "../SpecialComponents/FalseComponent.hpp"
+#include "../SpecialComponents/InputComponent.cpp"
+#include "../SpecialComponents/OutputComponent.cpp"
+#include "../SpecialComponents/ClockComponent.cpp"
+#include "../SpecialComponents/TrueComponent.cpp"
+#include "../SpecialComponents/FalseComponent.cpp"
+
+#include "../ElementaryComponents/AndComponent.cpp"
+#include "../ElementaryComponents/NotComponent.cpp"
+#include "../ElementaryComponents/OrComponent.cpp"
+#include "../ElementaryComponents/XorComponent.cpp"
 
 namespace nts {
     class Circuit {

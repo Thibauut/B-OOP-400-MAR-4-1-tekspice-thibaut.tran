@@ -12,10 +12,11 @@
 namespace nts {
     class AndComponent: public nts::AComponent {
         public:
-            // AndComponent(): nts::AComponent("AndComponent", 3) {
-            // }
-            AndComponent() = default;
+            AndComponent(std::string name): nts::AComponent(name) {};
             ~AndComponent() = default;
             nts::Tristate compute(std::size_t pin);
+            void setValue(std::size_t pin) {};
+
+            nts::Tristate _value;
     };
 }

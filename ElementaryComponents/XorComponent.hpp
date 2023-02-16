@@ -9,9 +9,14 @@
 
 #include "../AComponents.hpp"
 
-class XorComponent: public nts::AComponent {
-    public:
-        XorComponent() = default;
-        ~XorComponent() = default;
-        nts::Tristate compute(std::size_t pin);
-};
+namespace nts {
+    class XorComponent: public nts::AComponent {
+        public:
+            XorComponent(std::string name): nts::AComponent(name) {};
+            ~XorComponent() = default;
+            nts::Tristate compute(std::size_t pin);
+            void setValue(std::size_t pin) {};
+
+            nts::Tristate _value;
+    };
+}
