@@ -8,8 +8,12 @@
 #include "InputComponent.hpp"
 
 nts::Tristate nts::InputComponent::compute(std::size_t pin) {
-    if (pin != 1)
-        Error::myErr("Input: Pin " + std::to_string(pin) + " doesn't exist");
+    try {
+        if (pin != 1)
+            throw Error("Input: Pin " + std::to_string(pin) + " doesn't exist on component");
+    } catch (Error &e) {
+        std::cerr << e.what() << ": ";
+    }
     return this->_value;
 };
 
