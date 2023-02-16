@@ -17,6 +17,8 @@
 #include "../ElementaryComponents/NotComponent.cpp"
 #include "../ElementaryComponents/OrComponent.cpp"
 #include "../ElementaryComponents/XorComponent.cpp"
+#include "../ElementaryComponents/NandComponent.cpp"
+#include "../ElementaryComponents/NorComponent.cpp"
 
 namespace nts {
     class Circuit {
@@ -30,9 +32,9 @@ namespace nts {
                 if (isInput == true) {
                     for (auto &x : _valuesToSet) {
                         if (x.second == "1" || x.second == "0")
-                            circuit.getComponent(x.first, file)->setValue(std::stoi(x.second));
+                            circuit.getComponent(x.first, file)->compute(std::stoi(x.second));
                         if (x.second == "U")
-                            circuit.getComponent(x.first, file)->setValue(UNDEFINED);
+                            circuit.getComponent(x.first, file)->compute(UNDEFINED);
                     }
                 }
                 tick += 1;

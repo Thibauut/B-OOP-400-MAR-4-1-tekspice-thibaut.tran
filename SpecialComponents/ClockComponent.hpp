@@ -16,9 +16,7 @@ namespace nts {
                 _value = UNDEFINED;
             };
             ~ClockComponent() = default;
-
             nts::Tristate compute(std::size_t pin);
-            void setValue(std::size_t pin);
 
             Tristate _value;
     };

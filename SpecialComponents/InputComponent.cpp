@@ -8,14 +8,12 @@
 #include "InputComponent.hpp"
 
 nts::Tristate nts::InputComponent::compute(std::size_t pin) {
-    return this->_value;
-};
-
-void nts::InputComponent::setValue(std::size_t value) {
-    if (value == 0)
+    if (pin == 1)
         this->_value = nts::FALSE;
-    else if (value == 1)
+    else if (pin == 2)
         this->_value = nts::TRUE;
     else
         this->_value = nts::UNDEFINED;
-}
+    return this->_value;
+};
+

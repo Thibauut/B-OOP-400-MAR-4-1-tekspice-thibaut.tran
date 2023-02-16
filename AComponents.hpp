@@ -39,8 +39,6 @@ namespace nts {
                 return _component;
             };
 
-            virtual void setValue(std::size_t value) = 0;
-
             std::string _component;
             std::map<std::size_t, std::pair<IComponent*, std::size_t>> _pins;
             std::size_t tick = 0;
