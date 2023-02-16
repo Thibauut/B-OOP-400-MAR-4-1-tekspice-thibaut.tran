@@ -2,24 +2,24 @@
 ** EPITECH PROJECT, 2022
 ** B-OOP-400-MAR-4-1-tekspice-thibaut.tran
 ** File description:
-** 4001Component.cpp
+** 4030Component.cpp
 */
 
-#include "4001Component.hpp"
+#include "4030Component.hpp"
 
-nts::Tristate NorOperator(size_t value1, size_t value2) {
+nts::Tristate XorOperator(size_t value1, size_t value2) {
     nts::Tristate _value;
     if ((value1 == nts::Tristate::TRUE && value2 == nts::Tristate::FALSE) ||
-    (value1 == nts::Tristate::FALSE && value2 == nts::Tristate::TRUE))
+        (value1 == nts::Tristate::FALSE && value2 == nts::Tristate::TRUE))
         return _value = nts::Tristate::TRUE;
     else if ((value1 == nts::Tristate::TRUE && value2 == nts::Tristate::TRUE) ||
-    (value1 == nts::Tristate::FALSE && value2 == nts::Tristate::FALSE))
+            (value1 == nts::Tristate::FALSE && value2 == nts::Tristate::FALSE))
         return _value = nts::Tristate::FALSE;
     else
         return _value = nts::Tristate::UNDEFINED;
 }
 
-nts::Tristate nts::Component4001::compute(std::size_t pin) {
+nts::Tristate nts::Component4030::compute(std::size_t pin) {
     nts::Tristate input1 = this->_pins[1].first->compute(this->_pins[1].second);
     nts::Tristate input2 = this->_pins[2].first->compute(this->_pins[2].second);
     nts::Tristate input5 = this->_pins[5].first->compute(this->_pins[5].second);
@@ -29,10 +29,10 @@ nts::Tristate nts::Component4001::compute(std::size_t pin) {
     nts::Tristate input12 = this->_pins[12].first->compute(this->_pins[12].second);
     nts::Tristate input13 = this->_pins[13].first->compute(this->_pins[13].second);
 
-    nts::Tristate output3 = NorOperator(input1, input2);
-    nts::Tristate output4 = NorOperator(input5, input6);
-    nts::Tristate output10 = NorOperator(input8, input9);
-    nts::Tristate output11 = NorOperator(input12, input13);
+    nts::Tristate output3 = XorOperator(input1, input2);
+    nts::Tristate output4 = XorOperator(input5, input6);
+    nts::Tristate output10 = XorOperator(input8, input9);
+    nts::Tristate output11 = XorOperator(input12, input13);
 
     if (pin == 3)
         return this->_value = output3;
