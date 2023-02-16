@@ -13,7 +13,7 @@ namespace nts {
     class Component4001 : public AComponent {
         public:
             Component4001(std::string name): nts::AComponent(name) {};
-            ~Component4001() override = default;
+            ~Component4001() = default;
 
             nts::Tristate compute(std::size_t pin);
             void setValue(std::size_t pin) {};

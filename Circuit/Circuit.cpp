@@ -59,6 +59,26 @@ void addElementaryComponent(std::string name, Parser &component, std::pair<std::
         _components.push_back(std::move(xorComponent));
         return;
     }
+    if (x.first == "nand") {
+        std::unique_ptr<nts::IComponent> nandComponent = std::make_unique<nts::NandComponent>(name);
+        _components.push_back(std::move(nandComponent));
+        return;
+    }
+    if (x.first == "nor") {
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::NorComponent>(name);
+        _components.push_back(std::move(norComponent));
+        return;
+    }
+    return;
+}
+
+void addGateComponent(std::string name, Parser &component, std::pair<std::string, std::string> x, std::vector<std::unique_ptr<nts::IComponent>> &_components)
+{
+    if (x.first == "4001") {
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4001>(name);
+        _components.push_back(std::move(norComponent));
+        return;
+    }
     return;
 }
 
@@ -67,6 +87,7 @@ void nts::Circuit::addComponent(std::string name, Parser &component) {
         if (x.second == name) {
             addSpecialComponent(name, component, x, _components);
             addElementaryComponent(name, component, x, _components);
+            addGateComponent(name, component, x, _components);
         }
     }
 };
@@ -111,7 +132,7 @@ void nts::Circuit::display(size_t _tick) const {
     cout << "output(s):"<< endl;
     for (auto& component : _components) {
         OutputComponent* output= dynamic_cast<OutputComponent*>(component.get());
-        if (output != nullptr && typeid(*output) != typeid(TrueComponent)) {
+        if (output != nullptr) {
             cout << "  " << output->getName() << ": " << displayValue(output->compute(1)) << endl;
         }
     }

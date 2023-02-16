@@ -20,6 +20,8 @@
 #include "../ElementaryComponents/NandComponent.cpp"
 #include "../ElementaryComponents/NorComponent.cpp"
 
+#include "../GatesComponents/4001Component.cpp"
+
 namespace nts {
     class Circuit {
         public:

@@ -1,8 +1,8 @@
 #zdhazduhzadiuzdziuadbzaidauzh
 
 .chipsets:
-            input                i      #########
-            input j
+            input                i
+            input j# # i
 output         o
 .links:
 
