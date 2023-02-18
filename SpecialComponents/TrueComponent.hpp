@@ -14,7 +14,7 @@ namespace nts {
     class TrueComponent: public nts::AComponent {
         public:
             TrueComponent(std::string name): AComponent(name) {
-                _value = UNDEFINED;
+                _value = TRUE;
             };
             ~TrueComponent() = default;
 
