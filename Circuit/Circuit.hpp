@@ -28,6 +28,7 @@
 #include "../AdvancedComponents/4801Component.cpp"
 #include "../AdvancedComponents/LoggerComponent.cpp"
 #include "../AdvancedComponents/2716Component.cpp"
+#include "../AdvancedComponents/4514Component.cpp"
 
 namespace nts {
     class Circuit {
