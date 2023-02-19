@@ -107,12 +107,24 @@ void addGateComponent(std::string name, Parser &component, std::pair<std::string
     return;
 }
 
+void addAdvancedComponent(std::string name, Parser &component, std::pair<std::string, std::string> x, std::vector<std::unique_ptr<nts::IComponent>> &_components)
+{
+    if (x.first == "4008") {
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4008>(name);
+        _components.push_back(std::move(norComponent));
+        return;
+    }
+    return;
+}
+
+
 void nts::Circuit::addComponent(std::string name, Parser &component) {
     for(auto &x: component._chipsets) {
         if (x.second == name) {
             addSpecialComponent(name, component, x, _components);
             addElementaryComponent(name, component, x, _components);
             addGateComponent(name, component, x, _components);
+            addAdvancedComponent(name, component, x, _components);
         }
     }
 };
