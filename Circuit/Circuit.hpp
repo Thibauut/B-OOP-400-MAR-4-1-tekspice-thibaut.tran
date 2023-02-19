@@ -25,6 +25,9 @@
 #include "../GatesComponents/4069Component.cpp"
 
 #include "../AdvancedComponents/4008Component.cpp"
+#include "../AdvancedComponents/4801Component.cpp"
+#include "../AdvancedComponents/LoggerComponent.cpp"
+#include "../AdvancedComponents/2716Component.cpp"
 
 namespace nts {
     class Circuit {
