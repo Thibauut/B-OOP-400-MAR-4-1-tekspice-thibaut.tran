@@ -9,14 +9,12 @@
 
 nts::Tristate NorOperator(size_t value1, size_t value2) {
     nts::Tristate _value;
-    if ((value1 == nts::Tristate::TRUE && value2 == nts::Tristate::FALSE) ||
-    (value1 == nts::Tristate::FALSE && value2 == nts::Tristate::TRUE))
+    if (value1 == nts::Tristate::FALSE && value2 == nts::Tristate::FALSE)
         return _value = nts::Tristate::TRUE;
-    else if ((value1 == nts::Tristate::TRUE && value2 == nts::Tristate::TRUE) ||
-    (value1 == nts::Tristate::FALSE && value2 == nts::Tristate::FALSE))
-        return _value = nts::Tristate::FALSE;
-    else
+    else if (value1 == nts::Tristate::UNDEFINED || value2 == nts::Tristate::UNDEFINED)
         return _value = nts::Tristate::UNDEFINED;
+    else
+        return _value = nts::Tristate::FALSE;
 }
 
 nts::Tristate nts::Component4001::compute(std::size_t pin) {
