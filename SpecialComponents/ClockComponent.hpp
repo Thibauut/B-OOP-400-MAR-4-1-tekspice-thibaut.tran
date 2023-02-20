@@ -14,7 +14,6 @@ namespace nts {
         public:
             ClockComponent(std::string name): AComponent(name) {
                 _value = UNDEFINED;
-                setClock = false;
             };
             ~ClockComponent() = default;
 
@@ -22,6 +21,5 @@ namespace nts {
             void setValue(std::size_t pin);
 
             Tristate _value;
-            bool setClock;
     };
 }

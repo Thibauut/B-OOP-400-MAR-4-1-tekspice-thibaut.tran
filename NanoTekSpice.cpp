@@ -40,7 +40,7 @@ void setLinksInCircuit(Circuit &circuit, Parser &file) {
 
 int checkIfComponentIsValid(std::string name, Parser &file) {
     for (auto &x: file._chipsets) {
-        if (x.second == name && x.first == "input" || x.first == "clock")
+        if (x.second == name && (x.first == "input" || x.first == "clock"))
             return 1;
     }
     return 0;

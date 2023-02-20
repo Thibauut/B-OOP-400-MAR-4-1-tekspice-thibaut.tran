@@ -12,21 +12,19 @@ nts::Tristate nts::ClockComponent::compute(std::size_t pin) {
 }
 
 void nts::ClockComponent::setValue(std::size_t value) {
-    if (_resetComp == false) {
         if (value == nts::UNDEFINED)
             this->_value = nts::UNDEFINED;
         else if (value == nts::FALSE)
             this->_value = nts::FALSE;
         else if (value == nts::TRUE)
             this->_value = nts::TRUE;
-    }
-    if (_resetComp == true) {
-        if (this->_value == nts::UNDEFINED)
-            this->_value = nts::UNDEFINED;
-        else if (this->_value == nts::FALSE)
-            this->_value = nts::TRUE;
-        else if (this->_value == nts::TRUE)
-            this->_value = nts::FALSE;
-    }
-    setClock = true;
 }
+
+    // if (_resetComp == false) {
+    //     if (this->_value == nts::UNDEFINED)
+    //         this->_value = nts::UNDEFINED;
+    //     else if (this->_value == nts::FALSE)
+    //         this->_value = nts::TRUE;
+    //     else if (this->_value == nts::TRUE)
+    //         this->_value = nts::FALSE;
+    // }

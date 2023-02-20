@@ -6,8 +6,6 @@
 */
 
 #include "OutputComponent.hpp"
-#include "TrueComponent.hpp"
-#include "FalseComponent.hpp"
 
 nts::Tristate nts::OutputComponent::compute(std::size_t pin) {
     return this->_pins[pin].first->compute(this->_pins[pin].second);
