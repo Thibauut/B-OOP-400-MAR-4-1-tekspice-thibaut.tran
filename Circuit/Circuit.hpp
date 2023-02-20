@@ -38,7 +38,7 @@ namespace nts {
                 _components.clear();
             };
 
-            void simulate(std::size_t &tick, bool &isInput, Circuit &circuit, Parser &file, std::vector<std::pair<std::string, std::string>> _valuesToSet) {
+            void simulate(std::size_t &tick, bool &isInput, Circuit &circuit, Parser &file, std::vector<std::pair<std::string, std::string>> &_valuesToSet) {
                 if (isInput == true) {
                     for (auto &x : _valuesToSet) {
                         if (x.second == "1" || x.second == "0") {
@@ -46,6 +46,27 @@ namespace nts {
                         }
                         if (x.second == "U")
                             circuit.getComponent(x.first, file)->setValue(UNDEFINED);
+                    }
+                    isInput = false;
+                } else {
+                    //CLOCK SIMULATION
+                    if (!_valuesToSet.empty()) {
+                        size_t lastIndex = _valuesToSet.size() - 1;
+                        AComponent *component = dynamic_cast<AComponent*>(circuit.getComponent(_valuesToSet.back().first, file));
+                         if (typeid(*component) == typeid(ClockComponent)) {
+                            if (_valuesToSet[lastIndex].second == "U") {
+                                circuit.getComponent(_valuesToSet[lastIndex].first, file)->setValue(UNDEFINED);
+                                _valuesToSet[lastIndex].second = "U";
+                            }
+                            if (_valuesToSet[lastIndex].second == "0") {
+                                circuit.getComponent(_valuesToSet[lastIndex].first, file)->setValue(stoi("1"));
+                                _valuesToSet.emplace_back(_valuesToSet[lastIndex].first, "1");
+                            }
+                            if (_valuesToSet[lastIndex].second == "1") {
+                                circuit.getComponent(_valuesToSet[lastIndex].first, file)->setValue(stoi("0"));
+                                _valuesToSet.emplace_back(_valuesToSet[lastIndex].first, "0");
+                            }
+                        }
                     }
                 }
                 tick += 1;

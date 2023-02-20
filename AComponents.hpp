@@ -15,7 +15,6 @@ namespace nts {
         public:
             AComponent(std::string name) {
                 _component = name;
-                _resetComp = false;
             };
 
             virtual ~AComponent() {
@@ -45,7 +44,6 @@ namespace nts {
             std::string _component;
             std::map<std::size_t, std::pair<IComponent*, std::size_t>> _pins;
             std::size_t tick = 0;
-            bool _resetComp;
     };
 };
 
