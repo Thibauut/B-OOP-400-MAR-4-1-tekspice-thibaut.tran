@@ -17,7 +17,6 @@ namespace nts {
 
             nts::Tristate compute(std::size_t pin);
             void setValue(std::size_t pin);
-
             nts::Tristate _value;
     };
 }

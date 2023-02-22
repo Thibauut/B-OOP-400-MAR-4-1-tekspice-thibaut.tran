@@ -15,28 +15,49 @@ nts::Tristate nts::Component4514::compute(std::size_t pin) {
     nts::Tristate input22 = this->_pins[22].first->compute(this->_pins[22].second);
     nts::Tristate inputInhibit = this->_pins[23].first->compute(this->_pins[23].second);
 
-    if (inputStrobe == nts::Tristate::FALSE)
+    if (inputStrobe == nts::Tristate::TRUE)
         return this->_value;
     if (inputInhibit == nts::Tristate::TRUE)
-        return this->_value = nts::UNDEFINED;
+        return this->_value;
 
-    nts::Tristate output0 = FALSE;
-    nts::Tristate output1 = FALSE;
-    nts::Tristate output2 = FALSE;
-    nts::Tristate output3 = FALSE;
-    nts::Tristate output4 = FALSE;
-    nts::Tristate output5 = FALSE;
-    nts::Tristate output6 = FALSE;
-    nts::Tristate output7 = FALSE;
-    nts::Tristate output8 = FALSE;
-    nts::Tristate output9 = FALSE;
-    nts::Tristate output10 = FALSE;
-    nts::Tristate output11 = FALSE;
-    nts::Tristate output12 = FALSE;
-    nts::Tristate output13 = FALSE;
-    nts::Tristate output14 = FALSE;
-    nts::Tristate output15 = FALSE;
-    nts::Tristate output16 = FALSE;
+    nts::Tristate output0 = UNDEFINED;
+    nts::Tristate output1 = UNDEFINED;
+    nts::Tristate output2 = UNDEFINED;
+    nts::Tristate output3 = UNDEFINED;
+    nts::Tristate output4 = UNDEFINED;
+    nts::Tristate output5 = UNDEFINED;
+    nts::Tristate output6 = UNDEFINED;
+    nts::Tristate output7 = UNDEFINED;
+    nts::Tristate output8 = UNDEFINED;
+    nts::Tristate output9 = UNDEFINED;
+    nts::Tristate output10 = UNDEFINED;
+    nts::Tristate output11 = UNDEFINED;
+    nts::Tristate output12 = UNDEFINED;
+    nts::Tristate output13 = UNDEFINED;
+    nts::Tristate output14 = UNDEFINED;
+    nts::Tristate output15 = UNDEFINED;
+    nts::Tristate output16 = UNDEFINED;
+
+
+    if (input22 == nts::Tristate::TRUE) {
+        output0 = FALSE;
+        output1 = FALSE;
+        output2 = FALSE;
+        output3 = FALSE;
+        output4 = FALSE;
+        output5 = FALSE;
+        output6 = FALSE;
+        output7 = FALSE;
+        output8 = FALSE;
+        output9 = FALSE;
+        output10 = FALSE;
+        output11 = FALSE;
+        output12 = FALSE;
+        output13 = FALSE;
+        output14 = FALSE;
+        output15 = FALSE;
+        output16 = FALSE;
+    }
 
     if (input2 == nts::Tristate::FALSE && input3 == nts::Tristate::FALSE && input21 == nts::Tristate::FALSE && input22 == nts::Tristate::FALSE)
         output0 = TRUE;
