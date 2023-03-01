@@ -7,13 +7,15 @@
 
 #include "Parser.hpp"
 
+int sizeAndLink = 0;
+
 //CHECK IF CHIPSET TYPE IS VALID
 void checkComponentType(Parser &list) {
     for (auto &x : list._chipsets) {
         if (x.first != "input" && x.first != "output" && x.first != "clock" && x.first != "true" && x.first != "false"
         && x.first != "and" && x.first != "or" && x.first != "xor" && x.first != "not" &&
         x.first != "4001" && x.first != "4011" && x.first != "4030" && x.first != "4069" && x.first != "4071" && x.first != "4081" &&
-        x.first != "4008" && x.first != "4013" && x.first != "4017" && x.first != "4040" && x.first != "4094" && x.first != "4514" && x.first != "4801" && x.first != "2716")
+        x.first != "4008" && x.first != "4013" && x.first != "4017" && x.first != "4040" && x.first != "4094" && x.first != "4514" && x.first != "4801" && x.first != "2716" && x.first != "logger")
              Error::myErr("Error: Invalid component");
     }
     return;
@@ -138,13 +140,13 @@ void Parser::parseFile(std::string file, Parser &list)
         checkIfLinkIsValid(x.first, list);
         checkIfLinkIsValid(x.second, list);
     }
+    sizeAndLink = list._links.size();
 }
 
 void Parser::print() {
     cout << "Chipsets:" << endl;
     for (auto &x : _chipsets)
         cout << x.first << " " << x.second << endl;
-
     cout << "Links:" << endl;
     for (auto &x : _links)
         cout << x.first << " "<< x.second << endl;

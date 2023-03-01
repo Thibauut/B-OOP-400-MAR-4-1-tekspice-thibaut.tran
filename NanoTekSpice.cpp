@@ -9,8 +9,6 @@
 #include "IComponents.hpp"
 #include "AComponents.hpp"
 #include "Circuit/Circuit.cpp"
-
-#include "Parser/Parser.cpp"
 #include <memory>
 #include <csignal>
 #include <unistd.h>
