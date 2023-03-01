@@ -134,6 +134,31 @@ void addAdvancedComponent(std::string name, Parser &component, std::pair<std::st
         _components.push_back(std::move(norComponent));
         return;
     }
+    if (x.first == "4013") {
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4013>(name);
+        _components.push_back(std::move(norComponent));
+        return;
+    }
+    if (x.first == "4017") {
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4017>(name);
+        _components.push_back(std::move(norComponent));
+        return;
+    }
+    if (x.first == "4040") {
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4040>(name);
+        _components.push_back(std::move(norComponent));
+        return;
+    }
+    if (x.first == "4094") {
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4094>(name);
+        _components.push_back(std::move(norComponent));
+        return;
+    }
+    if (x.first == "4512") {
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4512>(name);
+        _components.push_back(std::move(norComponent));
+        return;
+    }
     return;
 }
 
