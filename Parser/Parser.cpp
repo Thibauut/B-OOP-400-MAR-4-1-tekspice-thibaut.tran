@@ -9,6 +9,12 @@
 
 int sizeAndLink = 0;
 
+//HASHES REMOVER
+void removeHashes(std::string &str) {
+    for (; !str.empty() && str.back() == '#' ;)
+        str.pop_back();
+}
+
 //CHECK IF CHIPSET TYPE IS VALID
 void checkComponentType(Parser &list) {
     for (auto &x : list._chipsets) {
@@ -131,6 +137,12 @@ void Parser::parseFile(std::string file, Parser &list)
     //CHECK IF CHIPSET LIST IS EMPTY
     if (list._chipsets.empty())
         Error::myErr("Error: No chipset found in the configuration file");
+
+    //REMOVE HASHES
+    for (auto &x : list._chipsets)
+        removeHashes(x.second);
+    for (auto &x : list._links)
+        removeHashes(x.second);
     //PARSING ERROR CHECK
     checkComponentType(list);
     checkComponentSameName(list);

@@ -6,11 +6,11 @@
 
 .chipsets:
 input in_1
-input in_2
+input in_2######
 output out
 and gate
 
 .links:
-in_1:1 gate:1
+in_1:1 gate:1#######
 in_2:1 gate:2
 out:1 gate:3
