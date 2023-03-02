@@ -15,11 +15,6 @@ nts::Tristate nts::Component4514::compute(std::size_t pin) {
     nts::Tristate input22 = this->_pins[22].first->compute(this->_pins[22].second);
     nts::Tristate inputInhibit = this->_pins[23].first->compute(this->_pins[23].second);
 
-    if (inputStrobe == nts::Tristate::TRUE)
-        return this->_value;
-    if (inputInhibit == nts::Tristate::TRUE)
-        return this->_value;
-
     nts::Tristate output0 = UNDEFINED;
     nts::Tristate output1 = UNDEFINED;
     nts::Tristate output2 = UNDEFINED;
@@ -37,6 +32,11 @@ nts::Tristate nts::Component4514::compute(std::size_t pin) {
     nts::Tristate output14 = UNDEFINED;
     nts::Tristate output15 = UNDEFINED;
     nts::Tristate output16 = UNDEFINED;
+
+    if (inputStrobe != nts::Tristate::TRUE)
+        return this->_value = UNDEFINED;
+    if (inputInhibit == nts::Tristate::TRUE)
+        return this->_value;
 
 
     if (input22 == nts::Tristate::TRUE) {
@@ -59,37 +59,37 @@ nts::Tristate nts::Component4514::compute(std::size_t pin) {
         output16 = FALSE;
     }
 
-    if (input2 == nts::Tristate::FALSE && input3 == nts::Tristate::FALSE && input21 == nts::Tristate::FALSE && input22 == nts::Tristate::FALSE)
+    if (input2 == 0 && input3 == 0 && input21 == 0 && input22 == 0)
         output0 = TRUE;
-    if (input2 == nts::Tristate::FALSE && input3 == nts::Tristate::FALSE && input21 == nts::Tristate::FALSE && input22 == nts::Tristate::TRUE)
+    if (input2 == 1 && input3 == 0 && input21 == 0 && input22 == 0)
         output1 = TRUE;
-    if (input2 == nts::Tristate::FALSE && input3 == nts::Tristate::FALSE && input21 == nts::Tristate::TRUE && input22 == nts::Tristate::FALSE)
+    if (input2 == 0 && input3 == 1 && input21 == 0 && input22 == 0)
         output2 = TRUE;
-    if (input2 == nts::Tristate::FALSE && input3 == nts::Tristate::FALSE && input21 == nts::Tristate::TRUE && input22 == nts::Tristate::TRUE)
+    if (input2 == 1 && input3 == 1 && input21 == 0 && input22 == 0)
         output3 = TRUE;
-    if (input2 == nts::Tristate::FALSE && input3 == nts::Tristate::TRUE && input21 == nts::Tristate::FALSE && input22 == nts::Tristate::FALSE)
+    if (input2 == 0 && input3 == 0 && input21 == 1 && input22 == 0)
         output4 = TRUE;
-    if (input2 == nts::Tristate::FALSE && input3 == nts::Tristate::TRUE && input21 == nts::Tristate::FALSE && input22 == nts::Tristate::TRUE)
+    if (input2 == 1 && input3 == 0 && input21 == 1 && input22 == 0)
         output5 = TRUE;
-    if (input2 == nts::Tristate::FALSE && input3 == nts::Tristate::TRUE && input21 == nts::Tristate::TRUE && input22 == nts::Tristate::FALSE)
+    if (input2 == 0 && input3 == 1 && input21 == 1 && input22 == 0)
         output6 = TRUE;
-    if (input2 == nts::Tristate::FALSE && input3 == nts::Tristate::TRUE && input21 == nts::Tristate::TRUE && input22 == nts::Tristate::TRUE)
+    if (input2 == 1 && input3 == 1 && input21 == 1 && input22 == 0)
         output7 = TRUE;
-    if (input2 == nts::Tristate::TRUE && input3 == nts::Tristate::FALSE && input21 == nts::Tristate::FALSE && input22 == nts::Tristate::FALSE)
+    if (input2 == 0 && input3 == 0 && input21 == 0 && input22 == 1)
         output8 = TRUE;
-    if (input2 == nts::Tristate::TRUE && input3 == nts::Tristate::FALSE && input21 == nts::Tristate::FALSE && input22 == nts::Tristate::TRUE)
+    if (input2 == 1 && input3 == 0 && input21 == 0 && input22 == 1)
         output9 = TRUE;
-    if (input2 == nts::Tristate::TRUE && input3 == nts::Tristate::FALSE && input21 == nts::Tristate::TRUE && input22 == nts::Tristate::FALSE)
+    if (input2 == 0 && input3 == 1 && input21 == 0 && input22 == 1)
         output10 = TRUE;
-    if (input2 == nts::Tristate::TRUE && input3 == nts::Tristate::FALSE && input21 == nts::Tristate::TRUE && input22 == nts::Tristate::TRUE)
+    if (input2 == 1 && input3 == 1 && input21 == 0 && input22 == 1)
         output11 = TRUE;
-    if (input2 == nts::Tristate::TRUE && input3 == nts::Tristate::TRUE && input21 == nts::Tristate::FALSE && input22 == nts::Tristate::FALSE)
+    if (input2 == 0 && input3 == 0 && input21 == 1 && input22 == 1)
         output12 = TRUE;
-    if (input2 == nts::Tristate::TRUE && input3 == nts::Tristate::TRUE && input21 == nts::Tristate::FALSE && input22 == nts::Tristate::TRUE)
+    if (input2 == 1 && input3 == 0 && input21 == 1 && input22 == 1)
         output13 = TRUE;
-    if (input2 == nts::Tristate::TRUE && input3 == nts::Tristate::TRUE && input21 == nts::Tristate::TRUE && input22 == nts::Tristate::FALSE)
+    if (input2 == 0 && input3 == 1 && input21 == 1 && input22 == 1)
         output14 = TRUE;
-    if (input2 == nts::Tristate::TRUE && input3 == nts::Tristate::TRUE && input21 == nts::Tristate::TRUE && input22 == nts::Tristate::TRUE)
+    if (input2 == 1 && input3 == 1 && input21 == 1 && input22 == 1)
         output15 = TRUE;
 
     if (pin == 4)
