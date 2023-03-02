@@ -12,11 +12,13 @@
 namespace nts {
     class Component4512 : public AComponent {
         public:
-            Component4512(std::string name): nts::AComponent(name) {};
+            Component4512(std::string name): nts::AComponent(name) {
+                _value = UNDEFINED;
+            };
             ~Component4512() = default;
 
             nts::Tristate compute(std::size_t pin);
-            void setValue(std::size_t pin);
+            void setValue(std::size_t pin) {};
 
             nts::Tristate _value;
     };
