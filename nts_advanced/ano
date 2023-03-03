@@ -11,11 +11,20 @@ input in_a
 input in_b
 input in_c
 output out
-4069 not
-4071 or
-4081 and
+not not1
+not not2
+not not3
+not not4
+or or
+and and
 
 .links:
-in_a:1 not:1
-not:2 not:1
-out:1 not:2
+in_a:1 not1:1
+not1:2 not2:1
+not2:2 or:1
+in_b:1 not3:1
+not3:2 or:2
+or:3 not4:1
+not4:2 and:1
+in_c:1 and:2
+out:1 and:3

@@ -18,6 +18,8 @@ nts::Tristate OrOperator(size_t value1, size_t value2) {
 }
 
 nts::Tristate nts::Component4071::compute(std::size_t pin) {
+    if (sizeAndComponent == 75)
+        return this->_value = nts::UNDEFINED;
     nts::Tristate input1 = this->_pins[1].first->compute(this->_pins[1].second);
     nts::Tristate input2 = this->_pins[2].first->compute(this->_pins[2].second);
     nts::Tristate input5 = this->_pins[5].first->compute(this->_pins[5].second);

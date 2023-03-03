@@ -83,7 +83,6 @@ int main(int ac, char **av)
 
     // EXECUTION && SIGNAL HANDLER
     signal(SIGINT, signal_handler);
-
     std::string line;
     std::cout << "> ";
     size_t _tick = 0;

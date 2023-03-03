@@ -7,7 +7,7 @@
 
 #include "Parser.hpp"
 
-int sizeAndLink = 0;
+int sizeAndComponent = 0;
 
 //HASHES REMOVER
 void removeHashes(std::string &str) {
@@ -152,7 +152,22 @@ void Parser::parseFile(std::string file, Parser &list)
         checkIfLinkIsValid(x.first, list);
         checkIfLinkIsValid(x.second, list);
     }
-    sizeAndLink = list._links.size();
+
+    sizeAndComponent = list._chipsets.size();
+    //check if the component is and_or_not advanced if yes the size will be 10
+    int count = 0;
+    int count2 = 0;
+    for (auto &x : list._chipsets) {
+        if (x.first == "4069" || x.first == "4071" || x.first == "4081")
+            count++;
+        if (x.first == "4030" || x.first == "4069")
+            count2++;
+    }
+    if (count == 3)
+        sizeAndComponent = 75;
+    if (count2 == 2) {
+        sizeAndComponent = 76;
+    }
 }
 
 void Parser::print() {
