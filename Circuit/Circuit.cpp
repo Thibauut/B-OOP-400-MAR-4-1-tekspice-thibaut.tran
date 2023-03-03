@@ -6,6 +6,7 @@
 */
 
 #include "Circuit.hpp"
+#include <algorithm>
 
 void addSpecialComponent(std::string name, Parser &component, std::pair<std::string, std::string> x, std::vector<std::unique_ptr<nts::IComponent>> &_components)
 {

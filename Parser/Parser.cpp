@@ -97,6 +97,15 @@ void checkIfLinkIsValid(std::string link, Parser &list) {
     return;
 }
 
+//SORT CHIPSETS
+bool comparePairs(const std::pair<std::string, std::string>& a, const std::pair<std::string, std::string>& b) {
+    return a.second < b.second;
+}
+
+void sortPairs(std::vector<std::pair<std::string, std::string>>& chipsets) {
+    std::sort(chipsets.begin(), chipsets.end(), comparePairs);
+}
+
 void Parser::parseFile(std::string file, Parser &list)
 {
     //INIT VARIABLES AND OPEN FILE
@@ -153,8 +162,11 @@ void Parser::parseFile(std::string file, Parser &list)
         checkIfLinkIsValid(x.second, list);
     }
 
-    sizeAndComponent = list._chipsets.size();
+    //SORT CHIPSETS
+    sortPairs(list._chipsets);
+
     //check if the component is and_or_not advanced if yes the size will be 10
+    sizeAndComponent = list._chipsets.size();
     int count = 0;
     int count2 = 0;
     for (auto &x : list._chipsets) {
