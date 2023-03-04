@@ -17,9 +17,6 @@ nts::Tristate NotOperator(std::size_t value) {
 }
 
 nts::Tristate nts::Component4069::compute(std::size_t pin) {
-    if (sizeAndComponent == 75 || sizeAndComponent == 76) {
-        return this->_value = nts::UNDEFINED;
-    }
     nts::Tristate input1 = this->_pins[1].first->compute(this->_pins[1].second);
     nts::Tristate input3 = this->_pins[3].first->compute(this->_pins[3].second);
     nts::Tristate input5 = this->_pins[5].first->compute(this->_pins[5].second);

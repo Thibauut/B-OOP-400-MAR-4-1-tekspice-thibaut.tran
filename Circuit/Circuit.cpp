@@ -6,7 +6,6 @@
 */
 
 #include "Circuit.hpp"
-#include <algorithm>
 
 void addSpecialComponent(std::string name, Parser &component, std::pair<std::string, std::string> x, std::vector<std::unique_ptr<nts::IComponent>> &_components)
 {
@@ -76,33 +75,33 @@ void addElementaryComponent(std::string name, Parser &component, std::pair<std::
 void addGateComponent(std::string name, Parser &component, std::pair<std::string, std::string> x, std::vector<std::unique_ptr<nts::IComponent>> &_components)
 {
     if (x.first == "4001") {
-        std::unique_ptr<nts::IComponent> Component4001 = std::make_unique<nts::Component4001>(name);
-        _components.push_back(std::move(Component4001));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4001>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "4011") {
-        std::unique_ptr<nts::IComponent> Component4011 = std::make_unique<nts::Component4011>(name);
-        _components.push_back(std::move(Component4011));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4011>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "4030") {
-        std::unique_ptr<nts::IComponent> Component4030 = std::make_unique<nts::Component4030>(name);
-        _components.push_back(std::move(Component4030));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4030>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "4069") {
-        std::unique_ptr<nts::IComponent> Component4069 = std::make_unique<nts::Component4069>(name);
-        _components.push_back(std::move(Component4069));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4069>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "4071") {
-        std::unique_ptr<nts::IComponent> Component4071 = std::make_unique<nts::Component4071>(name);
-        _components.push_back(std::move(Component4071));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4071>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "4081") {
-        std::unique_ptr<nts::IComponent> Component4081 = std::make_unique<nts::Component4081>(name);
-        _components.push_back(std::move(Component4081));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4081>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     return;
@@ -111,53 +110,53 @@ void addGateComponent(std::string name, Parser &component, std::pair<std::string
 void addAdvancedComponent(std::string name, Parser &component, std::pair<std::string, std::string> x, std::vector<std::unique_ptr<nts::IComponent>> &_components)
 {
     if (x.first == "4008") {
-        std::unique_ptr<nts::IComponent> Component4008 = std::make_unique<nts::Component4008>(name);
-        _components.push_back(std::move(Component4008));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4008>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "4801") {
-        std::unique_ptr<nts::IComponent> Component4801 = std::make_unique<nts::Component4801>(name);
-        _components.push_back(std::move(Component4801));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4801>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "logger") {
-        std::unique_ptr<nts::IComponent> Componentlogger = std::make_unique<nts::ComponentLogger>(name);
-        _components.push_back(std::move(Componentlogger));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::ComponentLogger>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "2716") {
-        std::unique_ptr<nts::IComponent> Component2716 = std::make_unique<nts::Component2716>(name);
-        _components.push_back(std::move(Component2716));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component2716>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "4514") {
-        std::unique_ptr<nts::IComponent> Component4514 = std::make_unique<nts::Component4514>(name);
-        _components.push_back(std::move(Component4514));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4514>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "4013") {
-        std::unique_ptr<nts::IComponent> Component4013 = std::make_unique<nts::Component4013>(name);
-        _components.push_back(std::move(Component4013));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4013>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "4017") {
-        std::unique_ptr<nts::IComponent> Component4017 = std::make_unique<nts::Component4017>(name);
-        _components.push_back(std::move(Component4017));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4017>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "4040") {
-        std::unique_ptr<nts::IComponent> Component4040 = std::make_unique<nts::Component4040>(name);
-        _components.push_back(std::move(Component4040));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4040>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "4094") {
-        std::unique_ptr<nts::IComponent> Component4094 = std::make_unique<nts::Component4094>(name);
-        _components.push_back(std::move(Component4094));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4094>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     if (x.first == "4512") {
-        std::unique_ptr<nts::IComponent> Component4512 = std::make_unique<nts::Component4512>(name);
-        _components.push_back(std::move(Component4512));
+        std::unique_ptr<nts::IComponent> norComponent = std::make_unique<nts::Component4512>(name);
+        _components.push_back(std::move(norComponent));
         return;
     }
     return;
@@ -180,9 +179,8 @@ nts::IComponent *nts::Circuit::getComponent(std::string name, Parser &file) cons
     for(auto &x: file._chipsets) {
         if (x.second != name)
             pos++;
-        if (x.second == name) {
+        if (x.second == name)
             break;
-        }
     }
     auto &component = _components[pos];
     return component.get();

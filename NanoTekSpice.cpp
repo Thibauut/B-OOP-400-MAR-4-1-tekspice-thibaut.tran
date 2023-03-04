@@ -31,9 +31,6 @@ void setLinksInCircuit(Circuit &circuit, Parser &file) {
         //pins des composants
         size_t _pin = std::stoi(x.first.substr(x.first.find(":") + 1));
         size_t _otherPin = std::stoi(x.second.substr(x.second.find(":") + 1));
-
-        if (firstComponent == otherComponent && _pin == _otherPin)
-            Error::myErr("Error: Cannot link a pin to itself");
         //setlinks
         circuit.getComponent(firstComponent, file)->setLink(_pin, *circuit.getComponent(otherComponent, file), _otherPin);
     }
@@ -86,6 +83,7 @@ int main(int ac, char **av)
 
     // EXECUTION && SIGNAL HANDLER
     signal(SIGINT, signal_handler);
+
     std::string line;
     std::cout << "> ";
     size_t _tick = 0;

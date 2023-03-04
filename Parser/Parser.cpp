@@ -7,7 +7,7 @@
 
 #include "Parser.hpp"
 
-int sizeAndComponent = 0;
+int sizeAndLink = 0;
 
 //HASHES REMOVER
 void removeHashes(std::string &str) {
@@ -97,15 +97,6 @@ void checkIfLinkIsValid(std::string link, Parser &list) {
     return;
 }
 
-//SORT CHIPSETS
-bool comparePairs(const std::pair<std::string, std::string>& a, const std::pair<std::string, std::string>& b) {
-    return a.second < b.second;
-}
-
-void sortPairs(std::vector<std::pair<std::string, std::string>>& chipsets) {
-    std::sort(chipsets.begin(), chipsets.end(), comparePairs);
-}
-
 void Parser::parseFile(std::string file, Parser &list)
 {
     //INIT VARIABLES AND OPEN FILE
@@ -114,7 +105,7 @@ void Parser::parseFile(std::string file, Parser &list)
         Error::myErr("Error: Invalid file");
     string line, current_statement = "";
     bool foundChipset = false;
-    bool foundLinks = false;
+
     //PARSE FILE
     while (getline(input_file, line)) {
         if (line.empty()) continue;
@@ -125,31 +116,21 @@ void Parser::parseFile(std::string file, Parser &list)
             foundChipset = true;
             current_statement = "chipsets";
         }
-        if(statement == ".links:") {
-            foundLinks = true;
+        if(statement == ".links:")
             current_statement = "links";
-        }
         if (statement[0] != '#') {
-            string content, name, parasite;
+            string content, name;
             content = statement;
             ss >> name;
-            ss >> parasite;
-            if (current_statement == "chipsets") {
-                if (!parasite.empty())
-                    Error::myErr("Error: Invalid chipset");
+            if (current_statement == "chipsets")
                 list._chipsets.push_back(make_pair(content, name));
-            }
             if (current_statement == "links") {
-                if (!parasite.empty())
-                    Error::myErr("Error: Invalid link");
                 list._links.push_back(make_pair(content, name));
             }
         }
     }
     if (!foundChipset)
         Error::myErr("Error: \'.chipsets:\' statement not found in the configuration file");
-    if (!foundLinks)
-        Error::myErr("Error: \'.links:\' statement not found in the configuration file");
     //REMOVE FIRST ELEMENT OF VECTOR (REMOVING: .chipsets: AND .links:)
     list._chipsets.erase(list._chipsets.begin());
     list._links.erase(list._links.begin());
@@ -171,25 +152,7 @@ void Parser::parseFile(std::string file, Parser &list)
         checkIfLinkIsValid(x.first, list);
         checkIfLinkIsValid(x.second, list);
     }
-
-    //SORT CHIPSETS
-    sortPairs(list._chipsets);
-
-    //check if the component is and_or_not advanced if yes the size will be 10
-    sizeAndComponent = list._chipsets.size();
-    int count = 0;
-    int count2 = 0;
-    for (auto &x : list._chipsets) {
-        if (x.first == "4069" || x.first == "4071" || x.first == "4081")
-            count++;
-        if (x.first == "4030" || x.first == "4069")
-            count2++;
-    }
-    if (count == 3)
-        sizeAndComponent = 75;
-    if (count2 == 2) {
-        sizeAndComponent = 76;
-    }
+    sizeAndLink = list._links.size();
 }
 
 void Parser::print() {

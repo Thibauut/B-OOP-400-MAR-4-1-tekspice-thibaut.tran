@@ -8,7 +8,6 @@
 #pragma once
 
 #include "IComponents.hpp"
-#include "Parser/Parser.cpp"
 
 namespace nts {
     class AComponent: public IComponent {
