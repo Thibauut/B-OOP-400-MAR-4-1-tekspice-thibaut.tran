@@ -114,7 +114,7 @@ void Parser::parseFile(std::string file, Parser &list)
         Error::myErr("Error: Invalid file");
     string line, current_statement = "";
     bool foundChipset = false;
-
+    bool foundLinks = false;
     //PARSE FILE
     while (getline(input_file, line)) {
         if (line.empty()) continue;
@@ -125,21 +125,31 @@ void Parser::parseFile(std::string file, Parser &list)
             foundChipset = true;
             current_statement = "chipsets";
         }
-        if(statement == ".links:")
+        if(statement == ".links:") {
+            foundLinks = true;
             current_statement = "links";
+        }
         if (statement[0] != '#') {
-            string content, name;
+            string content, name, parasite;
             content = statement;
             ss >> name;
-            if (current_statement == "chipsets")
+            ss >> parasite;
+            if (current_statement == "chipsets") {
+                if (!parasite.empty())
+                    Error::myErr("Error: Invalid chipset");
                 list._chipsets.push_back(make_pair(content, name));
+            }
             if (current_statement == "links") {
+                if (!parasite.empty())
+                    Error::myErr("Error: Invalid link");
                 list._links.push_back(make_pair(content, name));
             }
         }
     }
     if (!foundChipset)
         Error::myErr("Error: \'.chipsets:\' statement not found in the configuration file");
+    if (!foundLinks)
+        Error::myErr("Error: \'.links:\' statement not found in the configuration file");
     //REMOVE FIRST ELEMENT OF VECTOR (REMOVING: .chipsets: AND .links:)
     list._chipsets.erase(list._chipsets.begin());
     list._links.erase(list._links.begin());
